@@ -1,0 +1,40 @@
+{
+  "schemaVersion": 1,
+  "id": "slabref",
+  "version": "0.1.0",
+
+  "name": "Refabricated Slabs",
+  "description": "Mix and match slabs as you want!",
+  "authors": [
+    "CebbyS"
+  ],
+  "contact": {
+    "homepage": "https://fabricmc.net/",
+    "sources": "https://github.com/FabricMC/fabric-example-mod"
+  },
+
+  "license": "CC0-1.0",
+  "icon": "assets/slabref/icon.png",
+
+  "environment": "*",
+  "entrypoints": {
+    "main": [
+      "com.cebbys.slabref.Slabref"
+    ],
+    "client": [
+      "com.cebbys.slabref.Slabref"
+    ]
+  },
+  "mixins": [
+    "slabref.mixins.json"
+  ],
+
+  "depends": {
+    "fabricloader": ">=0.7.4",
+    "fabric": "*",
+    "minecraft": "1.16.x"
+  },
+  "suggests": {
+    "another-mod": "*"
+  }
+}
