@@ -18,11 +18,10 @@ public class IdentifierProperty extends Property<Identifier> {
 	private final ImmutableSet<Identifier> values;
 	public static final String SPLIT = "_sp11t_";
 
-	
 	public static IdentifierProperty of(String name) {
 		return new IdentifierProperty(name);
 	}
-	
+
 	protected IdentifierProperty(String name) {
 		super(name, Identifier.class);
 		this.values = this.getIdentifierValues();
@@ -53,7 +52,7 @@ public class IdentifierProperty extends Property<Identifier> {
 		Identifier id = new Identifier(idString);
 		return this.values.contains(id) ? Optional.of(id) : Optional.empty();
 	}
-	
+
 	private ImmutableSet<Identifier> getIdentifierValues() {
 		Set<Identifier> set = new HashSet<Identifier>(SlabRegistry.SLABS);
 		set.remove(Registry.BLOCK.getId(Blocks.PETRIFIED_OAK_SLAB));

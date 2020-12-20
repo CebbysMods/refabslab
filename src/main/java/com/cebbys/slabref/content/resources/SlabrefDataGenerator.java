@@ -8,13 +8,13 @@ import com.swordglowsblue.artifice.api.builder.data.LootTableBuilder;
 import net.minecraft.util.Identifier;
 
 public class SlabrefDataGenerator {
-	
+
 	public static void generateData() {
 		Artifice.registerDataPack(new Identifier(Slabref.MODID, "pack"), pack -> {
 			pack.setDisplayName("Slabref Data");
 			pack.setDescription("Default Slabref Data");
 			pack.shouldOverwrite();
-			
+
 			pack.addLootTable(SlabrefResUtilities.id("blocks/double_slab_block"), roll -> {
 				roll.type(new Identifier("block"));
 				DoubleSlabBlock.TOP.getValues().forEach(val -> {
@@ -23,7 +23,7 @@ public class SlabrefDataGenerator {
 			});
 		});
 	}
-	
+
 	private static void appendPool(LootTableBuilder roll, Identifier slab) {
 		roll.pool(pool -> {
 			pool.rolls(1);
@@ -52,4 +52,5 @@ public class SlabrefDataGenerator {
 			});
 		});
 	}
+
 }

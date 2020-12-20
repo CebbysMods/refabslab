@@ -1,16 +1,13 @@
 package com.cebbys.slabref;
 
+import com.cebbys.celib.loggers.CelibLogger;
 import com.cebbys.slabref.content.SlabrefSlabBlocks;
 import com.cebbys.slabref.content.resources.SlabrefDataGenerator;
 import com.cebbys.slabref.content.resources.SlabrefPackGenerator;
-import com.cebbys.slabref.registries.TextureRegistry;
-
 import net.fabricmc.api.ClientModInitializer;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.fabricmc.api.ModInitializer;
-import net.minecraft.item.Items;
-import net.minecraft.item.ToolMaterials;
 
 public class Slabref implements ModInitializer, ClientModInitializer {
 
@@ -18,9 +15,11 @@ public class Slabref implements ModInitializer, ClientModInitializer {
 
 	@Override
 	public void onInitialize() {
+        CelibLogger.log( MODID, "Loading slabref - Refactored Slabs Mod!" );
 		new SlabrefSlabBlocks();
-		
+        CelibLogger.log( MODID, "Generating data pack!" );
 		SlabrefDataGenerator.generateData();
+        CelibLogger.log( MODID, "Data pack generation compleated!" );
 	}
 
 	static {
@@ -30,9 +29,8 @@ public class Slabref implements ModInitializer, ClientModInitializer {
 	@Override
 	@Environment(EnvType.CLIENT)
 	public void onInitializeClient() {
-		
-		TextureRegistry.initializeTexturePairs();
-		
+        CelibLogger.log( MODID, "Generating resource pack!" );
 		SlabrefPackGenerator.generatePack();
+        CelibLogger.log( MODID, "Resource pack generation compleated!" );
 	}
 }

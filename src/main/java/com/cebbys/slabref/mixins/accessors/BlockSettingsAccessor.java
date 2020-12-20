@@ -8,9 +8,11 @@ import net.minecraft.block.AbstractBlock.Settings;
 
 @Mixin(AbstractBlock.class)
 public interface BlockSettingsAccessor {
-	@Accessor("settings")
-	public Settings getBlockSettings();
 	
 	@Accessor("settings")
+	public Settings getBlockSettings();
+
+	@Accessor("settings")
 	public void setBlockSettings(Settings settings);
+	
 }
