@@ -7,7 +7,7 @@ import net.minecraft.block.Material;
 
 public class SlabrefSlabBlocks {
 	public static final DoubleSlabBlock DOUBLE_SLAB;
-	
+
 	static {
 		DOUBLE_SLAB = new DoubleSlabBlock("double_slab", FabricBlockSettings.of(Material.STONE));
 	}

@@ -30,7 +30,13 @@ public class SlabrefPackGenerator {
 	private static void appendBlockstate(BlockStateBuilder state, Identifier id) {
 		state.multipartCase(s -> {
 			s.when("top", SlabrefResUtilities.getNameFromId(id)).apply(v -> {
-				v.model(new Identifier(id.getNamespace(), "block/" + id.getPath() + "_top"));
+				if(id.getNamespace() == "betterend") {
+					v.model(new Identifier(id.getNamespace(), "block/" + id.getPath()));
+					v.uvlock(true);
+					v.rotationX(180);
+				} else {
+					v.model(new Identifier(id.getNamespace(), "block/" + id.getPath() + "_top"));
+				}
 			});
 		});
 		state.multipartCase(s -> {

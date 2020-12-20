@@ -6,6 +6,7 @@ import com.cebbys.slabref.content.blocks.properties.IdentifierProperty;
 import net.minecraft.util.Identifier;
 
 public class SlabrefResUtilities {
+
 	protected static Identifier id(String name) {
 		return new Identifier(Slabref.MODID, name);
 	}
@@ -13,4 +14,5 @@ public class SlabrefResUtilities {
 	protected static String getNameFromId(Identifier id) {
 		return id.getNamespace() + IdentifierProperty.SPLIT + id.getPath();
 	}
+
 }
