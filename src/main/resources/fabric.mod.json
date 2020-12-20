@@ -37,6 +37,7 @@
     "artifice": "0.14.x"
   },
   "suggests": {
-    "blockus": "*"
+    "blockus": "*",
+    "betterend": "*"
   }
 }
