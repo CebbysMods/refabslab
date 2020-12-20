@@ -13,5 +13,5 @@ public interface SettingsAccessor {
 
 	@Accessor("hardness")
 	public float getHardness();
-	
+
 }
