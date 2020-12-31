@@ -13,7 +13,7 @@ group = project.maven_group
 repositories { 
    	jcenter()
    	flatDir {
-        dirs 'C:/Users/valen/Documents/Git/Minecraft/Fabric/Eclipse 1.16.3/celib-mod/build/libs'
+        dirs 'C:/Users/valen/Documents/Git/Minecraft/Fabric/1.16.3/mods/celib-mod/build/libs'
     }
 }
 
