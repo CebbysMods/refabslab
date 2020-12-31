@@ -18,10 +18,9 @@ public class SlabrefPackGenerator {
 			pack.setVisible();
 
 			pack.addBlockState(SlabrefResUtilities.id("double_slab_block"), state -> {
-				DoubleSlabBlock.TOP.getValues().forEach(top -> {
+				DoubleSlabBlock.BASE.getValues().forEach(top -> {
 					appendBlockstate(state, top);
 				});
-				state.build();
 			});
 		});
 	}
@@ -29,8 +28,8 @@ public class SlabrefPackGenerator {
 	@Environment(EnvType.CLIENT)
 	private static void appendBlockstate(BlockStateBuilder state, Identifier id) {
 		state.multipartCase(s -> {
-			s.when("top", SlabrefResUtilities.getNameFromId(id)).apply(v -> {
-				if(id.getNamespace() == "betterend") {
+			s.when("extend", SlabrefResUtilities.getNameFromId(id)).apply(v -> {
+				if(id.getNamespace().equals("betterend")) {
 					v.model(new Identifier(id.getNamespace(), "block/" + id.getPath()));
 					v.uvlock(true);
 					v.rotationX(180);
@@ -40,7 +39,7 @@ public class SlabrefPackGenerator {
 			});
 		});
 		state.multipartCase(s -> {
-			s.when("bottom", SlabrefResUtilities.getNameFromId(id)).apply(v -> {
+			s.when("base", SlabrefResUtilities.getNameFromId(id)).apply(v -> {
 				v.model(new Identifier(id.getNamespace(), "block/" + id.getPath()));
 			});
 		});

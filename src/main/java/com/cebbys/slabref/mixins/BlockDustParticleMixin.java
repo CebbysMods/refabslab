@@ -21,7 +21,7 @@ public abstract class BlockDustParticleMixin extends SpriteBillboardParticle {
 	@Inject(at = @At("TAIL"), method = "<init>(Lnet/minecraft/client/world/ClientWorld;DDDDDDLnet/minecraft/block/BlockState;)V")
 	private void init(ClientWorld world, double x, double y, double z, double velocityX, double velocityY, double velocityZ, BlockState blockState, CallbackInfo info) {
 		if(blockState.getBlock() instanceof DoubleSlabBlock) {
-			BlockState top = Registry.BLOCK.get(blockState.get(DoubleSlabBlock.TOP)).getDefaultState();
+			BlockState top = Registry.BLOCK.get(blockState.get(DoubleSlabBlock.EXTEND)).getDefaultState();
 			this.setSprite(MinecraftClient.getInstance().getBlockRenderManager().getModels().getSprite(top));
 		}
 	}

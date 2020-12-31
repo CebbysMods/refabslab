@@ -17,7 +17,7 @@ public class SlabrefDataGenerator {
 
 			pack.addLootTable(SlabrefResUtilities.id("blocks/double_slab_block"), roll -> {
 				roll.type(new Identifier("block"));
-				DoubleSlabBlock.TOP.getValues().forEach(val -> {
+				DoubleSlabBlock.EXTEND.getValues().forEach(val -> {
 					appendPool(roll, val);
 				});
 			});
@@ -32,7 +32,7 @@ public class SlabrefDataGenerator {
 				e.condition(new Identifier("block_state_property"), s -> {
 					s.add("block", (new Identifier(Slabref.MODID, "double_slab_block").toString()));
 					s.addObject("properties", prop -> {
-						prop.add("top", SlabrefResUtilities.getNameFromId(slab));
+						prop.add("extend", SlabrefResUtilities.getNameFromId(slab));
 					});
 				});
 				e.name(slab);
@@ -45,7 +45,7 @@ public class SlabrefDataGenerator {
 				e.condition(new Identifier("block_state_property"), s -> {
 					s.add("block", (new Identifier(Slabref.MODID, "double_slab_block").toString()));
 					s.addObject("properties", prop -> {
-						prop.add("bottom", SlabrefResUtilities.getNameFromId(slab));
+						prop.add("base", SlabrefResUtilities.getNameFromId(slab));
 					});
 				});
 				e.name(slab);

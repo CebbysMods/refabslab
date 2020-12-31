@@ -12,7 +12,6 @@
     "BlockStateMixin",
     "BlockDustParticleMixin",
     "SlabBlockMixin",
-    "SlabBlockRegistryMixin",
     "SlabBlockParticleMixin"
   ],
   "client": [

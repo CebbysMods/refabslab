@@ -22,15 +22,15 @@ public class Slabref implements ModInitializer, ClientModInitializer {
         CelibLogger.log( MODID, "Data pack generation compleated!" );
 	}
 
-	static {
-		MODID = "slabref";
-	}
-
 	@Override
 	@Environment(EnvType.CLIENT)
 	public void onInitializeClient() {
-        CelibLogger.log( MODID, "Generating resource pack!" );
+		CelibLogger.log( MODID, "Generating resource pack!" );
 		SlabrefPackGenerator.generatePack();
-        CelibLogger.log( MODID, "Resource pack generation compleated!" );
+		CelibLogger.log( MODID, "Resource pack generation compleated!" );
+	}
+
+	static {
+		MODID = "slabref";
 	}
 }

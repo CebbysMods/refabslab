@@ -15,16 +15,16 @@ import net.minecraft.util.registry.Registry;
 
 public class IdentifierProperty extends Property<Identifier> {
 
-	private final ImmutableSet<Identifier> values;
 	public static final String SPLIT = "_sp11t_";
-
+	private final ImmutableSet<Identifier> values;
+	
 	public static IdentifierProperty of(String name) {
 		return new IdentifierProperty(name);
 	}
 
 	protected IdentifierProperty(String name) {
 		super(name, Identifier.class);
-		this.values = this.getIdentifierValues();
+		this.values = this.generateValues();
 	}
 
 	@Override
@@ -50,11 +50,11 @@ public class IdentifierProperty extends Property<Identifier> {
 			idString = idString + ":" + parts[i];
 		}
 		Identifier id = new Identifier(idString);
-		return this.values.contains(id) ? Optional.of(id) : Optional.empty();
+		return this.getValues().contains(id) ? Optional.of(id) : Optional.empty();
 	}
-
-	private ImmutableSet<Identifier> getIdentifierValues() {
-		Set<Identifier> set = new HashSet<Identifier>(SlabRegistry.SLABS);
+	
+	private ImmutableSet<Identifier> generateValues() {
+		Set<Identifier> set = new HashSet<Identifier>(SlabRegistry.getSlabIdentifiers());
 		set.remove(Registry.BLOCK.getId(Blocks.PETRIFIED_OAK_SLAB));
 		return ImmutableSet.copyOf(set);
 	}

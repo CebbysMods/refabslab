@@ -3,8 +3,8 @@ package com.cebbys.slabref.mixins.tools;
 import java.util.Set;
 
 import org.spongepowered.asm.mixin.Mixin;
-import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
+import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
 import com.cebbys.slabref.content.blocks.DoubleSlabBlock;
@@ -23,8 +23,8 @@ public abstract class AxeMixin extends MiningToolItem {
 	@Inject(method = "getMiningSpeedMultiplier", at = @At("HEAD"), cancellable = true)
 	public void getMiningSpeedMultiplier(ItemStack stack, BlockState state, CallbackInfoReturnable<Float> cir) {
 		if(state.getBlock() instanceof DoubleSlabBlock) {
-			BlockState t = Registry.BLOCK.get(state.get(DoubleSlabBlock.TOP)).getDefaultState();
-			BlockState b = Registry.BLOCK.get(state.get(DoubleSlabBlock.BOTTOM)).getDefaultState();
+			BlockState t = Registry.BLOCK.get(state.get(DoubleSlabBlock.EXTEND)).getDefaultState();
+			BlockState b = Registry.BLOCK.get(state.get(DoubleSlabBlock.BASE)).getDefaultState();
 			cir.setReturnValue((this.getMiningSpeedMultiplier(stack, t) + this.getMiningSpeedMultiplier(stack, b)) / 2.0F);
 			cir.cancel();
 		}
