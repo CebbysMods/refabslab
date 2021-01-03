@@ -10,7 +10,6 @@
     "tools.AxeMixin",
 
     "BlockStateMixin",
-    "BlockDustParticleMixin",
     "SlabBlockMixin",
     "SlabBlockParticleMixin"
   ],

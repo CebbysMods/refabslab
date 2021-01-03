@@ -5,9 +5,8 @@ import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
-import com.cebbys.slabref.content.SlabrefSlabBlocks;
-import com.cebbys.slabref.content.blocks.DoubleSlabBlock;
-import com.cebbys.slabref.registries.SlabRegistry;
+import com.cebbys.slabref.events.SlabrefEventsClient;
+import com.cebbys.slabref.utilities.SlabUtilities;
 
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
@@ -36,26 +35,27 @@ public abstract class SlabBlockMixin extends Block {
 		World world = ctx.getWorld();
 		BlockState state = world.getBlockState(pos);
 		Block block0 = state.getBlock();
-		Block block1 = ((BlockItem) ctx.getStack().getItem()).getBlock();
-		if(SlabRegistry.contains(block0, block1) && block0 != block1) {
-			Identifier id0 = Registry.BLOCK.getId(block0);
-			Identifier id1 = Registry.BLOCK.getId(block1);
-			BlockState doubleState = null;
-			SlabType type0 = state.get(SlabBlock.TYPE);
-			if (type0 == SlabType.TOP) {
-				doubleState = SlabrefSlabBlocks.DOUBLE_SLAB.getDefaultState();
-				doubleState = doubleState.with(DoubleSlabBlock.BASE, id1);
-				doubleState = doubleState.with(DoubleSlabBlock.EXTEND, id0);
-			} else if (type0 == SlabType.BOTTOM) {
-				doubleState = SlabrefSlabBlocks.DOUBLE_SLAB.getDefaultState();
-				doubleState = doubleState.with(DoubleSlabBlock.BASE, id0);
-				doubleState = doubleState.with(DoubleSlabBlock.EXTEND, id1);
+		if (SlabUtilities.Blocks.contains(block0)) {
+			if (!state.get(SlabBlock.TYPE).equals(SlabType.DOUBLE)) {
+				Block block1 = ((BlockItem) ctx.getStack().getItem()).getBlock();
+				if (SlabUtilities.Blocks.contains(block1) && block0 != block1) {
+					Identifier id0 = Registry.BLOCK.getId(block0);
+					Identifier id1 = Registry.BLOCK.getId(block1);
+					SlabType type0 = state.get(SlabBlock.TYPE);
+					BlockState ret = null;
+					if (type0 == SlabType.TOP) {
+						SlabrefEventsClient.Execute.createDoubleSlabEvent(pos, id1, id0);
+						ret = state;
+					} else if (type0 == SlabType.BOTTOM) {
+						SlabrefEventsClient.Execute.createDoubleSlabEvent(pos, id0, id1);
+						ret = state;
+					}
+					if (ret != null) {
+						cr.cancel();
+						cr.setReturnValue(state);
+					}
+				}
 			}
-			if (doubleState != null) {
-				cr.cancel();
-				cr.setReturnValue(doubleState);
-			}
-
 		}
 	}
 
@@ -66,7 +66,7 @@ public abstract class SlabBlockMixin extends Block {
 			ItemStack itemStack = ctx.getStack();
 			if (itemStack.getItem() instanceof BlockItem) {
 				Block block = ((BlockItem) itemStack.getItem()).getBlock();
-				if (block != state.getBlock() && SlabRegistry.contains(state.getBlock(), block)) {
+				if (block != state.getBlock() && SlabUtilities.Blocks.contains(state.getBlock(), block)) {
 					Direction placementFace = ctx.getSide();
 
 					Direction s = ctx.getSide();
