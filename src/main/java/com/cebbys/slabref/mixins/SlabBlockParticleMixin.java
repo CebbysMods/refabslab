@@ -6,9 +6,11 @@ import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
-import org.spongepowered.asm.mixin.injection.At;
 
 import com.cebbys.slabref.content.blocks.DoubleSlabBlock;
+import com.cebbys.slabref.content.entities.DoubleSlabEntity;
+
+import org.spongepowered.asm.mixin.injection.At;
 
 import net.minecraft.block.BlockRenderType;
 import net.minecraft.block.BlockState;
@@ -45,8 +47,9 @@ public abstract class SlabBlockParticleMixin {
 	@Inject(method = "addBlockBreakParticles", at = @At("HEAD"), cancellable = true)
 	public void addBlockBreakParticles(BlockPos pos, BlockState state, CallbackInfo ci) {
 		if (state.getBlock() instanceof DoubleSlabBlock) {
-			BlockState slabT = Registry.BLOCK.get(state.get(DoubleSlabBlock.TOP)).getDefaultState();
-			BlockState slabB = Registry.BLOCK.get(state.get(DoubleSlabBlock.BOTTOM)).getDefaultState();
+			DoubleSlabEntity entity = (DoubleSlabEntity) this.world.getBlockEntity(pos);
+			BlockState slabT = Registry.BLOCK.get(entity.getExtend()).getDefaultState();
+			BlockState slabB = Registry.BLOCK.get(entity.getBase()).getDefaultState();
 			VoxelShape voxelShape = state.getOutlineShape(this.world, pos);
 			voxelShape.forEachBox((dx, e, f, g, h, i) -> {
 				double j = Math.min(1.0D, g - dx);
@@ -124,8 +127,9 @@ public abstract class SlabBlockParticleMixin {
 				if (direction == Direction.EAST) {
 					d = (double) i + box.maxX + 0.10000000149011612D;
 				}
-				BlockState slabT = Registry.BLOCK.get(state.get(DoubleSlabBlock.TOP)).getDefaultState();
-				BlockState slabB = Registry.BLOCK.get(state.get(DoubleSlabBlock.BOTTOM)).getDefaultState();
+				DoubleSlabEntity entity = (DoubleSlabEntity) this.world.getBlockEntity(pos);
+				BlockState slabT = Registry.BLOCK.get(entity.getExtend()).getDefaultState();
+				BlockState slabB = Registry.BLOCK.get(entity.getBase()).getDefaultState();
 				if(this.random.nextInt(2) == 1) {
 					this.addParticle((new BlockDustParticle(this.world, d, e, g, 0.0D, 0.0D, 0.0D, slabT))
 							.setBlockPos(pos).move(0.2F).scale(0.6F));

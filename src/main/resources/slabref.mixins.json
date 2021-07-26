@@ -10,9 +10,7 @@
     "tools.AxeMixin",
 
     "BlockStateMixin",
-    "BlockDustParticleMixin",
     "SlabBlockMixin",
-    "SlabBlockRegistryMixin",
     "SlabBlockParticleMixin"
   ],
   "client": [
