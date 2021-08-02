@@ -1,10 +1,10 @@
 plugins {
-	id 'fabric-loom' version '0.5-SNAPSHOT'
+	id 'fabric-loom' version '0.8-SNAPSHOT'
 	id 'maven-publish'
 }
 
-sourceCompatibility = JavaVersion.VERSION_1_8
-targetCompatibility = JavaVersion.VERSION_1_8
+sourceCompatibility = JavaVersion.VERSION_16
+targetCompatibility = JavaVersion.VERSION_16
 
 archivesBaseName = project.archives_base_name
 version = project.mod_version
@@ -12,9 +12,9 @@ group = project.maven_group
 
 repositories { 
    	jcenter()
-   	flatDir {
-        dirs 'C:/Users/valen/Documents/Git/Minecraft/Fabric/1.16.3/mods/celib-mod/build/libs'
-    }
+	maven {
+		url "https://cebbys-repomanager.herokuapp.com/mcmods"
+	}
 }
 
 dependencies {
@@ -25,7 +25,7 @@ dependencies {
 	modImplementation "net.fabricmc.fabric-api:fabric-api:${project.fabric_version}"
   	modImplementation "com.lettuce.fudge:artifice:0.14.4+1.16.3"
   	include "com.lettuce.fudge:artifice:0.14.4+1.16.3"
- 	modImplementation "com.cebbys.celib:celib:0.2.0"
+ 	modImplementation "lv.cebbys.mcmods:celib-mod:0.4.0"
 }
 
 processResources {
@@ -36,19 +36,8 @@ processResources {
 }
 
 tasks.withType(JavaCompile).configureEach {
-	// ensure that the encoding is set to UTF-8, no matter what the system default is
-	// this fixes some edge cases with special characters not displaying correctly
-	// see http://yodaconditions.net/blog/fix-for-java-file-encoding-problems-with-gradle.html
-	// If Javadoc is generated, this must be specified in that task too.
 	it.options.encoding = "UTF-8"
-
-	// The Minecraft launcher currently installs Java 8 for users, so your mod probably wants to target Java 8 too
-	// JDK 9 introduced a new way of specifying this that will make sure no newer classes or methods are used.
-	// We'll use that if it's available, but otherwise we'll use the older option.
-	def targetVersion = 8
-	if (JavaVersion.current().isJava9Compatible()) {
-		 it.options.release = targetVersion
-	}
+	it.options.release = 16
 }
 
 java {
