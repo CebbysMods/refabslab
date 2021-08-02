@@ -44,7 +44,9 @@ public class DoubleSlabBlock extends BlockWithEntity {
                         player.getBlockBreakingSpeed(Registry.BLOCK.get(entity.getBottom()).getDefaultState()),
                         player.getBlockBreakingSpeed(Registry.BLOCK.get(entity.getTop()).getDefaultState())
                 );
-                float harvest = player.canHarvest(top) || player.canHarvest(bottom) ? 30 : 100;
+                float harvest = 100;
+                harvest -= player.canHarvest(top) ? 35 : 0;
+                harvest -= player.canHarvest(bottom) ? 35 : 0;
                 return speed / hardness / harvest;
             }
         }

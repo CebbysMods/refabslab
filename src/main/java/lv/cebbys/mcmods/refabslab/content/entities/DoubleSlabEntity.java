@@ -1,7 +1,6 @@
 package lv.cebbys.mcmods.refabslab.content.entities;
 
 import lv.cebbys.mcmods.refabslab.content.RefabslabSlabEntities;
-import lv.cebbys.mcmods.refabslab.utilities.BlockStateEntityProvider;
 import net.fabricmc.fabric.api.block.entity.BlockEntityClientSerializable;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.entity.BlockEntity;
@@ -21,7 +20,6 @@ public class DoubleSlabEntity extends BlockEntity implements BlockEntityClientSe
 
     public DoubleSlabEntity(Identifier b, Identifier e, BlockPos pos, BlockState state) {
         super(RefabslabSlabEntities.SLAB_ENTITY, pos, state);
-        ((BlockStateEntityProvider) state).setBlockEntity(this);
         this.bottom = b;
         this.top = e;
     }
@@ -37,16 +35,20 @@ public class DoubleSlabEntity extends BlockEntity implements BlockEntityClientSe
     @Override
     public NbtCompound writeNbt(NbtCompound tag) {
         tag = super.writeNbt(tag);
-        tag.putString("bottom_slab", this.bottom.toString());
-        tag.putString("top_slab", this.top.toString());
+        if(this.bottom != null && this.top != null) {
+            tag.putString("bottom_slab", this.bottom.toString());
+            tag.putString("top_slab", this.top.toString());
+        }
         return tag;
     }
 
     @Override
     public void readNbt(NbtCompound tag) {
         super.readNbt(tag);
-        this.bottom = new Identifier(tag.getString("bottom_slab"));
-        this.top = new Identifier(tag.getString("top_slab"));
+        if(tag.contains("bottom_slab") && tag.contains("top_slab")) {
+            this.bottom = new Identifier(tag.getString("bottom_slab"));
+            this.top = new Identifier(tag.getString("top_slab"));
+        }
     }
 
     @Override

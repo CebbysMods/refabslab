@@ -4,11 +4,6 @@
   "package": "lv.cebbys.mcmods.refabslab.mixins",
   "compatibilityLevel": "JAVA_16",
   "mixins": [
-    "accessors.BlockSettingsAccessor",
-    "accessors.SettingsAccessor",
-    "accessors.StateCodecAccessor",
-
-    "BlockStateMixin",
     "SlabBlockMixin",
     "SlabBlockParticleMixin"
   ],

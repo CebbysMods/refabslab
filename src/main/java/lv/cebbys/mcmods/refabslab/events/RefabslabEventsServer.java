@@ -2,8 +2,17 @@ package lv.cebbys.mcmods.refabslab.events;
 
 import lv.cebbys.mcmods.refabslab.content.RefabslabSlabBlocks;
 import lv.cebbys.mcmods.refabslab.content.entities.DoubleSlabEntity;
+import lv.cebbys.mcmods.celib.loggers.CelibLogger;
 import net.fabricmc.fabric.api.network.ServerSidePacketRegistry;
+import net.fabricmc.fabric.api.networking.v1.PacketSender;
+import net.fabricmc.fabric.api.networking.v1.ServerPlayNetworking;
+import net.fabricmc.fabric.impl.networking.server.ServerPlayNetworkAddon;
 import net.minecraft.block.BlockState;
+import net.minecraft.item.ItemStack;
+import net.minecraft.network.PacketByteBuf;
+import net.minecraft.server.MinecraftServer;
+import net.minecraft.server.network.ServerPlayNetworkHandler;
+import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.sound.BlockSoundGroup;
 import net.minecraft.sound.SoundCategory;
 import net.minecraft.util.Identifier;
@@ -16,22 +25,26 @@ public final class RefabslabEventsServer extends RefabslabEvents {
 	public static final class Initialize {
 		
 		public static void doubleSlabCreatedEvent() {
-			ServerSidePacketRegistry.INSTANCE.register(IDENTIFIER_PACKET, (context, data) -> {
+			ServerPlayNetworking.registerGlobalReceiver(IDENTIFIER_PACKET, (server, player, handler, data, responseSender) -> {
 				BlockPos pos = data.readBlockPos();
-				Identifier base = data.readIdentifier();
-				Identifier extend = data.readIdentifier();
-				context.getTaskQueue().execute(() -> {
-					World world = context.getPlayer().getEntityWorld();
+				Identifier bottom = data.readIdentifier();
+				Identifier top = data.readIdentifier();
+				World world = player.getServerWorld();
+
+				server.execute(() -> {
+					player.getMainHandStack().decrement(1);
+
 					BlockState state = RefabslabSlabBlocks.DOUBLE_SLAB.getDefaultState();
 					world.setBlockState(pos, state, 3);
-					
-					BlockSoundGroup group = Registry.BLOCK.get(extend).getDefaultState().getSoundGroup();
-		            world.playSound(null, pos, group.getPlaceSound(), SoundCategory.BLOCKS, (group.getVolume() + 1.0F) / 2.0F, group.getPitch() * 0.8F);
-					
-		            DoubleSlabEntity entity = new DoubleSlabEntity(base, extend, pos, state);
-		            world.addBlockEntity(entity);
+
+					DoubleSlabEntity entity = new DoubleSlabEntity(bottom, top, pos, state);
+					world.addBlockEntity(entity);
 					entity.setWorld(world);
 					entity.sync();
+
+					BlockSoundGroup group = Registry.BLOCK.get(top).getDefaultState().getSoundGroup();
+					world.playSound(null, pos, group.getPlaceSound(), SoundCategory.BLOCKS,
+							(group.getVolume() + 1.0F) / 2.0F, group.getPitch() * 0.8F);
 				});
 			});
 		}
