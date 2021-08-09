@@ -1,0 +1,15 @@
+{
+  "required": true,
+  "minVersion": "0.8",
+  "package": "lv.cebbys.mcmods.refabslab.mixins",
+  "compatibilityLevel": "JAVA_16",
+  "mixins": [
+    "SlabBlockMixin",
+    "SlabBlockParticleMixin"
+  ],
+  "client": [
+  ],
+  "injectors": {
+    "defaultRequire": 1
+  }
+}

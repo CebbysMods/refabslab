@@ -1,0 +1,5 @@
+{
+  "variants": {
+    "": { "model": "refabslab:block/double_slab_block" }
+  }
+}
