@@ -23,6 +23,7 @@ public abstract class CombinedBlockEntity<T extends Block> extends BlockEntity i
     }
 
     protected abstract String getBaseIdentifier();
+
     protected abstract String getExtendIdentifier();
 
     public Identifier getBase() {
@@ -36,7 +37,7 @@ public abstract class CombinedBlockEntity<T extends Block> extends BlockEntity i
     @Override
     public NbtCompound writeNbt(NbtCompound tag) {
         tag = super.writeNbt(tag);
-        if(this.getBase() != null && this.getExtend() != null) {
+        if (this.getBase() != null && this.getExtend() != null) {
             tag.putString(this.getBaseIdentifier(), this.getBase().toString());
             tag.putString(this.getExtendIdentifier(), this.getExtend().toString());
         }
@@ -46,7 +47,7 @@ public abstract class CombinedBlockEntity<T extends Block> extends BlockEntity i
     @Override
     public void readNbt(NbtCompound tag) {
         super.readNbt(tag);
-        if(tag.contains(this.getBaseIdentifier()) && tag.contains(this.getExtendIdentifier())) {
+        if (tag.contains(this.getBaseIdentifier()) && tag.contains(this.getExtendIdentifier())) {
             this.base = new Identifier(tag.getString(this.getBaseIdentifier()));
             this.extend = new Identifier(tag.getString(this.getExtendIdentifier()));
         }

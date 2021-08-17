@@ -2,7 +2,6 @@ package lv.cebbys.mcmods.refabslab.content.entities;
 
 import lv.cebbys.mcmods.refabslab.content.RefabslabEntities;
 import lv.cebbys.mcmods.refabslab.content.blocks.WallBlock;
-import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.registry.Registry;

@@ -16,6 +16,10 @@ public class DoubleWallBlock extends CombinedBlock<DoubleWallEntity> {
 
     public static final EnumProperty<Direction.Axis> AXIS;
 
+    static {
+        AXIS = EnumProperty.of("axis", Direction.Axis.class, Direction.Axis.X, Direction.Axis.Z);
+    }
+
     public DoubleWallBlock() {
         super(FabricBlockSettings.of(Material.STONE));
         this.setDefaultState(this.getDefaultState().with(AXIS, Direction.Axis.X));
@@ -62,9 +66,5 @@ public class DoubleWallBlock extends CombinedBlock<DoubleWallEntity> {
         WallBlock wall = (WallBlock) state.getBlock();
         BlockState slab = wall.getSlabVariant().getDefaultState();
         return player.canHarvest(slab);
-    }
-
-    static {
-        AXIS = EnumProperty.of("axis", Direction.Axis.class, Direction.Axis.X, Direction.Axis.Z);
     }
 }

@@ -12,27 +12,27 @@ import net.minecraft.util.registry.Registry;
 
 public class RefabslabEntities {
 
-	public static final BlockEntityType<DoubleSlabEntity> SLAB_ENTITY;
-	public static final BlockEntityType<DoubleWallEntity> WALL_ENTITY;
+    public static final BlockEntityType<DoubleSlabEntity> SLAB_ENTITY;
+    public static final BlockEntityType<DoubleWallEntity> WALL_ENTITY;
 
-	static {
-		SLAB_ENTITY = createBlockEntity("double_slab_entity", DoubleSlabEntity::new,
-				RefabslabBlocks.DOUBLE_SLAB
-		);
-		WALL_ENTITY = createBlockEntity("double_wall_entity", DoubleWallEntity::new,
-				RefabslabBlocks.DOUBLE_WALL
-		);
-	}
+    static {
+        SLAB_ENTITY = createBlockEntity("double_slab_entity", DoubleSlabEntity::new,
+                RefabslabBlocks.DOUBLE_SLAB
+        );
+        WALL_ENTITY = createBlockEntity("double_wall_entity", DoubleWallEntity::new,
+                RefabslabBlocks.DOUBLE_WALL
+        );
+    }
 
-	private static <T extends BlockEntity> BlockEntityType<T> createBlockEntity(
-			String entityName,
-			FabricBlockEntityTypeBuilder.Factory<T> factory,
-			Block... blocks
-	) {
-		return Registry.register(
-				Registry.BLOCK_ENTITY_TYPE,
-				new Identifier(Refabslab.MODID, entityName),
-				FabricBlockEntityTypeBuilder.create(factory, blocks).build()
-		);
-	}
+    private static <T extends BlockEntity> BlockEntityType<T> createBlockEntity(
+            String entityName,
+            FabricBlockEntityTypeBuilder.Factory<T> factory,
+            Block... blocks
+    ) {
+        return Registry.register(
+                Registry.BLOCK_ENTITY_TYPE,
+                new Identifier(Refabslab.MODID, entityName),
+                FabricBlockEntityTypeBuilder.create(factory, blocks).build()
+        );
+    }
 }

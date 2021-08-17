@@ -29,9 +29,8 @@ import java.util.function.Supplier;
 public class DoubleWallModel extends SimpleCombinedModel {
 
     private final SpriteIdentifier PARTICLE_ID = new SpriteIdentifier(SpriteAtlasTexture.BLOCK_ATLAS_TEXTURE, new Identifier("block/cobblestone"));
-    private Sprite PARTICLE;
-
     private final Direction.Axis axis;
+    private Sprite PARTICLE;
 
     public DoubleWallModel(Direction.Axis modelAxis) {
         this.axis = modelAxis;

@@ -13,9 +13,9 @@ public class DoubleWallModelProvider implements ModelResourceProvider {
 
     @Override
     public @Nullable UnbakedModel loadModelResource(Identifier resourceId, ModelProviderContext context) {
-        if(resourceId.equals(new Identifier(Refabslab.MODID, "block/double_wall_block_x"))) {
+        if (resourceId.equals(new Identifier(Refabslab.MODID, "block/double_wall_block_x"))) {
             return new DoubleWallModel(Direction.Axis.X);
-        } else if(resourceId.equals(new Identifier(Refabslab.MODID, "block/double_wall_block_z"))) {
+        } else if (resourceId.equals(new Identifier(Refabslab.MODID, "block/double_wall_block_z"))) {
             return new DoubleWallModel(Direction.Axis.Z);
         }
         return null;

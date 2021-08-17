@@ -30,23 +30,24 @@ import java.util.Random;
 public abstract class SlabBlockParticleMixin {
 
     @Shadow
+    protected ClientWorld world;
+    @Shadow
     private Random random;
-	@Shadow
-	protected ClientWorld world;
 
-	@Shadow
-	public abstract void addParticle(Particle p);
-	@Shadow
-	public abstract void addBlockBreakParticles(BlockPos pos, BlockState state);
+    @Shadow
+    public abstract void addParticle(Particle p);
+
+    @Shadow
+    public abstract void addBlockBreakParticles(BlockPos pos, BlockState state);
 
     @Inject(method = "addBlockBreakParticles", at = @At("HEAD"), cancellable = true)
     public void addBlockBreakParticles(BlockPos pos, BlockState state, CallbackInfo ci) {
         if (state.getBlock() instanceof DoubleSlabBlock &&
-				this.world.getBlockEntity(pos) instanceof DoubleSlabEntity entity) {
+                this.world.getBlockEntity(pos) instanceof DoubleSlabEntity entity) {
             BlockState slabTop = Registry.BLOCK.get(entity.getExtend()).getDefaultState();
             BlockState slabBottom = Registry.BLOCK.get(entity.getBase()).getDefaultState();
-			this.addBlockBreakParticles(pos, slabTop);
-			this.addBlockBreakParticles(pos, slabBottom);
+            this.addBlockBreakParticles(pos, slabTop);
+            this.addBlockBreakParticles(pos, slabBottom);
             ci.cancel();
         }
     }

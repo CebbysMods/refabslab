@@ -37,14 +37,17 @@ public class RefabslabBlocks {
         BLOCKUS = isModLoaded("blockus") ? new BlockusWalls() : null;
     }
 
-    public static final class MinecraftWalls {
-        private final List<Block> TEMP_LIST = new ArrayList<>();
+    private static boolean isModLoaded(String id) {
+        return FabricLoader.getInstance().isModLoaded(id);
+    }
 
+    public static final class MinecraftWalls {
+        public final ImmutableList<Block> WALL_SLABS;
+        private final List<Block> TEMP_LIST = new ArrayList<>();
         // Stones
         public final Block STONE_WALL_SLAB = registerVanillaWall(Blocks.STONE_SLAB);
         public final Block ANDESITE_WALL_SLAB = registerVanillaWall(Blocks.ANDESITE_SLAB);
         public final Block BLACKSTONE_WALL_SLAB = registerVanillaWall(Blocks.BLACKSTONE_SLAB);
-
         // Woods
         public final Block OAK_WALL_SLAB = registerVanillaWall(Blocks.OAK_SLAB);
         public final Block BIRCH_WALL_SLAB = registerVanillaWall(Blocks.BIRCH_SLAB);
@@ -55,10 +58,13 @@ public class RefabslabBlocks {
         public final Block CRIMSON_WALL_SLAB = registerVanillaWall(Blocks.CRIMSON_SLAB);
         public final Block WARPED_WALL_SLAB = registerVanillaWall(Blocks.WARPED_SLAB);
 
-        public final ImmutableList<Block> WALL_SLABS;
+        private MinecraftWalls() {
+            CelibLogger.info("Registering Minecraft wall slab blocks");
+            WALL_SLABS = ImmutableList.copyOf(this.TEMP_LIST);
+        }
 
         protected Block registerVanillaWall(Block block) {
-            if(block instanceof SlabBlock slab) {
+            if (block instanceof SlabBlock slab) {
                 Identifier slabIdentifier = Registry.BLOCK.getId(block);
                 String wallName = slabIdentifier.getPath().replaceAll("slab", "wall_slab");
                 Block wall = REGISTRY.registerBlock(wallName, new WallBlock(slab));
@@ -73,10 +79,7 @@ public class RefabslabBlocks {
             }
         }
 
-        private MinecraftWalls() {
-            CelibLogger.info("Registering Minecraft wall slab blocks");
-            WALL_SLABS = ImmutableList.copyOf(this.TEMP_LIST);
-        };
+        ;
     }
 
     public static final class BlockusWalls {
@@ -84,9 +87,5 @@ public class RefabslabBlocks {
         private BlockusWalls() {
             CelibLogger.info("Registering Blockus wall slab blocks");
         }
-    }
-
-    private static boolean isModLoaded(String id) {
-        return FabricLoader.getInstance().isModLoaded(id);
     }
 }

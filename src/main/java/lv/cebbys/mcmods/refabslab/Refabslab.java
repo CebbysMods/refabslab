@@ -7,26 +7,26 @@ import net.fabricmc.api.ModInitializer;
 
 public class Refabslab implements ModInitializer, ClientModInitializer {
 
-	public static final String MODID;
-	public static final CelibRegistrator REGISTRY;
+    public static final String MODID;
+    public static final CelibRegistrator REGISTRY;
 
-	@Override
-	public void onInitialize() {
-		RefabslabServer.initContent();
-		RefabslabServer.initData();
-		RefabslabServer.initEvents();
-	}
+    static {
+        MODID = "refabslab";
+        REGISTRY = new CelibRegistrator(MODID);
+        ResourceEntrypoint.registerAssets();
+        ResourceEntrypoint.registerData();
+    }
 
-	@Override
-	public void onInitializeClient() {
-		RefabslabClient.initResources();
-		RefabslabClient.initProviders();
-	}
+    @Override
+    public void onInitialize() {
+        RefabslabServer.initContent();
+        RefabslabServer.initData();
+        RefabslabServer.initEvents();
+    }
 
-	static {
-		MODID = "refabslab";
-		REGISTRY = new CelibRegistrator(MODID);
-		ResourceEntrypoint.registerAssets();
-		ResourceEntrypoint.registerData();
-	}
+    @Override
+    public void onInitializeClient() {
+        RefabslabClient.initResources();
+        RefabslabClient.initProviders();
+    }
 }

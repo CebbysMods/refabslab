@@ -14,27 +14,16 @@ public class ResourceEntrypoint {
                 new Identifier(Refabslab.MODID, "assets"),
                 "Refabricated Slabs Assets",
                 pack -> {
-                    pack.addPackMeta(mcmeta -> {
-                        mcmeta.packFormat(7);
-                        mcmeta.description("Refabricated Slabs Asset Pack");
-                    });
-                    pack.addPackIcon(icon -> {
-                        icon.image(new Identifier(Refabslab.MODID, "textures/icon/icon.png"));
+                    pack.packMeta().packFormat(7).description("Refabricated Slabs Asset Pack");
+                    pack.packIcon().path(new Identifier(Refabslab.MODID, "textures/icon/icon.png"));
+
+                    pack.variantBlockState(RefabslabBlocks.DOUBLE_SLAB, b -> {
+                        b.variant().model(new Identifier(Refabslab.MODID, "block/double_slab_block"));
                     });
 
-                    pack.addVariantBlockState(RefabslabBlocks.DOUBLE_SLAB, blockstate -> {
-                        blockstate.variant(variant -> {
-                            variant.model(new Identifier(Refabslab.MODID, "block/double_slab_block"));
-                        });
-                    });
-
-                    pack.addVariantBlockState(RefabslabBlocks.DOUBLE_WALL, blockstate -> {
-                        blockstate.variant("axis", "x", variant -> {
-                            variant.model(new Identifier(Refabslab.MODID, "block/double_wall_block_x"));
-                        });
-                        blockstate.variant("axis", "z", variant -> {
-                            variant.model(new Identifier(Refabslab.MODID, "block/double_wall_block_z"));
-                        });
+                    pack.variantBlockState(RefabslabBlocks.DOUBLE_WALL, b -> {
+                        b.variant("axis", "x").model(new Identifier(Refabslab.MODID, "block/double_wall_block_x"));
+                        b.variant("axis", "z").model(new Identifier(Refabslab.MODID, "block/double_wall_block_z"));
                     });
 
                     for (Block wall : RefabslabBlocks.MINECRAFT.WALL_SLABS) {
@@ -48,14 +37,14 @@ public class ResourceEntrypoint {
                 new Identifier(Refabslab.MODID, "built_in_data"),
                 "Refabricated Slabs Built-In Data",
                 pack -> {
-                    pack.addPackMeta(mcmeta -> {
-                        mcmeta.packFormat(7);
-                        mcmeta.description("Block tags and drops");
-                    });
-
-                    pack.addPackIcon(icon -> {
-                        icon.image(new Identifier(Refabslab.MODID, "textures/icon/icon.png"));
-                    });
+//                    pack.addPackMeta(mcmeta -> {
+//                        mcmeta.packFormat(7);
+//                        mcmeta.description("Block tags and drops");
+//                    });
+//
+//                    pack.addPackIcon(icon -> {
+//                        icon.image(new Identifier(Refabslab.MODID, "textures/icon/icon.png"));
+//                    });
                 }
         );
     }

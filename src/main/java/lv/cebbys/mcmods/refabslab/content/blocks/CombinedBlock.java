@@ -2,7 +2,6 @@ package lv.cebbys.mcmods.refabslab.content.blocks;
 
 import lv.cebbys.mcmods.celib.loggers.CelibLogger;
 import lv.cebbys.mcmods.refabslab.content.entities.CombinedBlockEntity;
-import net.minecraft.block.Block;
 import net.minecraft.block.BlockRenderType;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.BlockWithEntity;
@@ -22,9 +21,13 @@ public abstract class CombinedBlock<E extends CombinedBlockEntity> extends Block
     }
 
     public abstract E createEntity(BlockPos pos, BlockState state);
+
     public abstract float getBlockHardness(E blockEntity);
+
     public abstract float getMiningSpeed(PlayerEntity player, E blockEntity);
+
     public abstract float getHarvestSpeed(PlayerEntity player, E blockEntity);
+
     public abstract boolean canPlayerHarvest(PlayerEntity player, BlockState state);
 
     @Override
@@ -41,13 +44,13 @@ public abstract class CombinedBlock<E extends CombinedBlockEntity> extends Block
     @Override
     public float calcBlockBreakingDelta(BlockState state, PlayerEntity player, BlockView world, BlockPos pos) {
         BlockEntity blockEntity = world.getBlockEntity(pos);
-        if(blockEntity != null) {
+        if (blockEntity != null) {
             try {
                 E entity = (E) blockEntity;
                 float hardness = this.getBlockHardness(entity);
                 float speed = this.getMiningSpeed(player, entity);
                 float harvest = this.getHarvestSpeed(player, entity);
-                return hardness == -1 ? 0.0F : speed / hardness/ harvest;
+                return hardness == -1 ? 0.0F : speed / hardness / harvest;
             } catch (Exception e) {
                 CelibLogger.info(e, "Failed to cast BlockEntity to type");
             }
@@ -59,7 +62,7 @@ public abstract class CombinedBlock<E extends CombinedBlockEntity> extends Block
     @Override
     public void onBreak(World world, BlockPos pos, BlockState state, PlayerEntity player) {
         BlockEntity blockEntity = world.getBlockEntity(pos);
-        if(blockEntity != null && this.isSurvival(player)) {
+        if (blockEntity != null && this.isSurvival(player)) {
             try {
                 E entity = (E) blockEntity;
                 BlockState topState = Registry.BLOCK.get(entity.getExtend()).getDefaultState();

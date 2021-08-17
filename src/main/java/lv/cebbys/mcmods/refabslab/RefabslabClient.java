@@ -6,12 +6,12 @@ import net.fabricmc.fabric.api.client.model.ModelLoadingRegistry;
 
 public class RefabslabClient {
 
-	protected static void initResources() {
+    protected static void initResources() {
 
-	}
-	
-	protected static void initProviders() {
-		ModelLoadingRegistry.INSTANCE.registerResourceProvider(rm -> new DoubleSlabModelProvider());
-		ModelLoadingRegistry.INSTANCE.registerResourceProvider(rm -> new DoubleWallModelProvider());
-	}
+    }
+
+    protected static void initProviders() {
+        ModelLoadingRegistry.INSTANCE.registerResourceProvider(rm -> new DoubleSlabModelProvider());
+        ModelLoadingRegistry.INSTANCE.registerResourceProvider(rm -> new DoubleWallModelProvider());
+    }
 }

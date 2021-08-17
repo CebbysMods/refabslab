@@ -36,7 +36,8 @@ public abstract class SlabBlockMixin extends Block {
             BlockPos pos = ctx.getBlockPos();
             World world = ctx.getWorld();
             BlockState placed = world.getBlockState(pos);
-            if(placed.getBlock() instanceof SlabBlock) {ItemStack placeable = ctx.getStack();
+            if (placed.getBlock() instanceof SlabBlock) {
+                ItemStack placeable = ctx.getStack();
                 BlockState inventory = ((BlockItem) placeable.getItem()).getBlock().getDefaultState();
                 if (this.isValidDoubleSlab(placed, inventory)) {
                     BlockState bottom;
@@ -54,7 +55,7 @@ public abstract class SlabBlockMixin extends Block {
                     if (world.canPlace(doubleState, pos, ShapeContext.absent())) {
                         Identifier bottomId = Registry.BLOCK.getId(bottom.getBlock());
                         Identifier topId = Registry.BLOCK.getId(top.getBlock());
-                        if(world.isClient()) {
+                        if (world.isClient()) {
                             RefabslabEventsClient.Execute.createDoubleSlabEvent(pos, bottomId, topId);
                         }
                         cr.setReturnValue(placed);
@@ -79,12 +80,12 @@ public abstract class SlabBlockMixin extends Block {
         BlockPos pos = ctx.getBlockPos();
         World world = ctx.getWorld();
         BlockState placed = world.getBlockState(pos);
-        if(placed.getBlock() instanceof SlabBlock) {
+        if (placed.getBlock() instanceof SlabBlock) {
             ItemStack placeable = ctx.getStack();
             BlockState inventory = ((BlockItem) placeable.getItem()).getBlock().getDefaultState();
             if (this.isValidDoubleSlab(placed, inventory)) {
                 BlockState doubleState = RefabslabBlocks.DOUBLE_SLAB.getDefaultState();
-                if(world.canPlace(doubleState, pos, ShapeContext.absent())) {
+                if (world.canPlace(doubleState, pos, ShapeContext.absent())) {
                     Direction placementFace = ctx.getSide();
                     Direction s = ctx.getSide();
                     Vec3d hit = ctx.getHitPos();

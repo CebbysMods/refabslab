@@ -27,6 +27,21 @@ public class WallBlock extends RefabslabBlock {
     public static final VoxelShape FACING_EAST;
     public static final VoxelShape FACING_SOUTH;
     public static final VoxelShape FACING_NORTH;
+
+    static {
+        FACING = DirectionProperty.of("facing",
+                Direction.WEST,
+                Direction.EAST,
+                Direction.SOUTH,
+                Direction.NORTH
+        );
+
+        FACING_WEST = VoxelShapes.cuboid(0.5, 0.0, 0.0, 1.0, 1.0, 1.0);
+        FACING_EAST = VoxelShapes.cuboid(0.0, 0.0, 0.0, 0.5, 1.0, 1.0);
+        FACING_NORTH = VoxelShapes.cuboid(0.0, 0.0, 0.0, 1.0, 1.0, 0.5);
+        FACING_SOUTH = VoxelShapes.cuboid(0.0, 0.0, 0.5, 1.0, 1.0, 1.0);
+    }
+
     private final SlabBlock slabVariant;
 
     public WallBlock(SlabBlock slab) {
@@ -61,10 +76,10 @@ public class WallBlock extends RefabslabBlock {
         World world = ctx.getWorld();
         BlockPos pos = ctx.getBlockPos();
         BlockState existing = world.getBlockState(pos);
-        if(ctx.getStack().getItem() instanceof BlockItem blockItem) {
+        if (ctx.getStack().getItem() instanceof BlockItem blockItem) {
             BlockState inventory = blockItem.getBlock().getDefaultState();
-            if(existing.getBlock() instanceof WallBlock existingBlock && inventory.getBlock() instanceof WallBlock inventoryBlock) {
-                if(world.isClient()) {
+            if (existing.getBlock() instanceof WallBlock existingBlock && inventory.getBlock() instanceof WallBlock inventoryBlock) {
+                if (world.isClient()) {
                     RefabslabEventsClient.Execute.createDoubleWallEvent(pos, existingBlock, inventoryBlock, existing.get(WallBlock.FACING));
                 }
                 return existing;
@@ -77,7 +92,7 @@ public class WallBlock extends RefabslabBlock {
 
         Direction.Axis axis;
         Direction.AxisDirection axisDirection;
-        if(Math.abs(localPos.x) > Math.abs(localPos.z)) {
+        if (Math.abs(localPos.x) > Math.abs(localPos.z)) {
             axis = Direction.Axis.X;
             axisDirection = localPos.x > 0 ? Direction.AxisDirection.NEGATIVE : Direction.AxisDirection.POSITIVE;
         } else {
@@ -89,20 +104,6 @@ public class WallBlock extends RefabslabBlock {
 
     public boolean canReplace(BlockState state, ItemPlacementContext context) {
         return true;
-    }
-
-    static {
-        FACING = DirectionProperty.of("facing",
-                Direction.WEST,
-                Direction.EAST,
-                Direction.SOUTH,
-                Direction.NORTH
-        );
-
-        FACING_WEST = VoxelShapes.cuboid(0.5, 0.0, 0.0, 1.0, 1.0, 1.0);
-        FACING_EAST = VoxelShapes.cuboid(0.0, 0.0, 0.0, 0.5, 1.0, 1.0);
-        FACING_NORTH = VoxelShapes.cuboid(0.0, 0.0, 0.0, 1.0, 1.0, 0.5);
-        FACING_SOUTH = VoxelShapes.cuboid(0.0, 0.0, 0.5, 1.0, 1.0, 1.0);
     }
 
     @Override

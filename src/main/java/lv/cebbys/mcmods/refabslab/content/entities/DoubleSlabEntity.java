@@ -1,7 +1,6 @@
 package lv.cebbys.mcmods.refabslab.content.entities;
 
 import lv.cebbys.mcmods.refabslab.content.RefabslabEntities;
-import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.SlabBlock;
 import net.minecraft.util.math.BlockPos;
