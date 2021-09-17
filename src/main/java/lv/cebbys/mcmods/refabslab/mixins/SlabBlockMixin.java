@@ -1,9 +1,7 @@
 package lv.cebbys.mcmods.refabslab.mixins;
 
-import lv.cebbys.mcmods.celib.loggers.CelibLogger;
 import lv.cebbys.mcmods.refabslab.content.RefabslabBlocks;
 import lv.cebbys.mcmods.refabslab.events.RefabslabEventsClient;
-import lv.cebbys.mcmods.refabslab.utilities.SlabUtilities;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.ShapeContext;
@@ -30,7 +28,7 @@ public abstract class SlabBlockMixin extends Block {
         super(settings);
     }
 
-    @Inject(method = "getPlacementState", at = @At("HEAD"), cancellable = true)
+    @Inject(method = "getPlacementState(Lnet/minecraft/item/ItemPlacementContext;)Lnet/minecraft/block/BlockState;", at = @At("HEAD"), cancellable = true)
     public void getPlacementState(ItemPlacementContext ctx, CallbackInfoReturnable<BlockState> cr) {
         try {
             BlockPos pos = ctx.getBlockPos();
@@ -64,17 +62,17 @@ public abstract class SlabBlockMixin extends Block {
                 }
             }
         } catch (Exception e) {
-            CelibLogger.error(e, "Failed to place double slab block");
+//            CelibLogger.error(e, "Failed to place double slab block");
         }
     }
 
     private boolean isValidDoubleSlab(BlockState placed, BlockState inventory) {
         return !placed.get(SlabBlock.TYPE).equals(SlabType.DOUBLE)
-                && !placed.getBlock().equals(inventory.getBlock())
-                && SlabUtilities.Blocks.contains(placed.getBlock(), inventory.getBlock());
+                && !placed.getBlock().equals(inventory.getBlock());
+//                && SlabUtilities.Blocks.contains(placed.getBlock(), inventory.getBlock());
     }
 
-    @Inject(method = "canReplace", at = @At("HEAD"), cancellable = true)
+    @Inject(method = "canReplace(Lnet/minecraft/block/BlockState;Lnet/minecraft/item/ItemPlacementContext;)Z", at = @At("HEAD"), cancellable = true)
     public void canReplace(BlockState state, ItemPlacementContext ctx, CallbackInfoReturnable<Boolean> cr) {
         SlabType type = state.get(SlabBlock.TYPE);
         BlockPos pos = ctx.getBlockPos();

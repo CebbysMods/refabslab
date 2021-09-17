@@ -7,8 +7,6 @@
     "SlabBlockMixin",
     "SlabBlockParticleMixin"
   ],
-  "client": [
-  ],
   "injectors": {
     "defaultRequire": 1
   }

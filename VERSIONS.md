@@ -33,6 +33,6 @@
 > * Minecraft vanilla walls.
 > * Blockus mod walls.
 > * Wall block item model generation based on existing models.
-> * Block state generation based on existing models.
+> * Block model generation based on existing models.
 
 ---

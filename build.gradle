@@ -23,7 +23,8 @@ dependencies {
     modImplementation "net.fabricmc:fabric-loader:${project.loader_version}"
     modImplementation "net.fabricmc.fabric-api:fabric-api:${project.fabric_version}"
 
-    modImplementation project(':celib-mod')
+    implementation project(':mods:celib:lib-mod')
+    implementation project(':mods:celib:respro-mod')
 }
 
 test {

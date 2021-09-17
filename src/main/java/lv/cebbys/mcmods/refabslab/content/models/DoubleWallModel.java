@@ -66,11 +66,6 @@ public class DoubleWallModel extends SimpleCombinedModel {
 
     }
 
-    @Override
-    public Sprite getSprite() {
-        return this.PARTICLE;
-    }
-
     @Nullable
     @Override
     public BakedModel bake(ModelLoader loader,
@@ -79,5 +74,10 @@ public class DoubleWallModel extends SimpleCombinedModel {
                            Identifier modelId) {
         this.PARTICLE = textureGetter.apply(this.PARTICLE_ID);
         return this;
+    }
+
+    @Override
+    public Sprite getParticleSprite() {
+        return this.PARTICLE;
     }
 }
