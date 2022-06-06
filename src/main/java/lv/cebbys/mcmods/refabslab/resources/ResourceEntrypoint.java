@@ -1,37 +1,46 @@
 package lv.cebbys.mcmods.refabslab.resources;
 
-import lv.cebbys.mcmods.celib.respro.api.ResproRegistry;
-import lv.cebbys.mcmods.celib.respro.imp.utilities.BlockProperty;
-import lv.cebbys.mcmods.refabslab.Refabslab;
+import com.mojang.bridge.game.PackType;
 import lv.cebbys.mcmods.refabslab.content.RefabslabBlocks;
 import lv.cebbys.mcmods.refabslab.resources.helpers.MinecraftResourceHelper;
+import lv.cebbys.mcmods.respro.api.ResproRegistry;
+import lv.cebbys.mcmods.respro.imp.component.BlockProperty;
+import net.minecraft.SharedConstants;
 import net.minecraft.block.Block;
 import net.minecraft.util.Identifier;
+
+import static lv.cebbys.mcmods.refabslab.Refabslab.MODID;
 
 public class ResourceEntrypoint {
 
     public static void registerAssets() {
-        ResproRegistry.registerAssetPack(new Identifier(Refabslab.MODID, "assets"), pack -> {
-            pack.setPackName("Refabslab Assets");
-            pack.setPackIcon(new Identifier(Refabslab.MODID, "textures/icon/icon.png"));
-            pack.setPackMeta(meta -> meta.packFormat(7).description("Slab Assets"));
-
-            pack.addVariantBlockState(RefabslabBlocks.DOUBLE_SLAB, state -> {
-                state.variant(v -> v.model(new Identifier(Refabslab.MODID, "block/double_slab_block")));
+        ResproRegistry.registerAssetPack(new Identifier(MODID, "assets"), pack -> {
+            pack.addPackName("Refabslab Assets");
+            pack.addPackIcon("assets/refabslab/icon.png");
+            pack.addPackMeta(meta -> {
+                meta.packFormat(SharedConstants.getGameVersion().getPackVersion(PackType.RESOURCE));
+                meta.description("Slab and wall assets");
             });
 
-            pack.addVariantBlockState(RefabslabBlocks.DOUBLE_WALL, state -> {
+            pack.addVariantBlockState(new Identifier(MODID, "double_slab_block"), state -> {
+                state.variant(v -> v.model(new Identifier(MODID, "block/double_slab_block")));
+            });
+
+            pack.addVariantBlockState(new Identifier(MODID, "double_wall_block"), state -> {
                 state.variant(
                         new BlockProperty("axis", "x"),
-                        b -> b.model(new Identifier(Refabslab.MODID, "block/double_wall_block_x")));
+                        b -> b.model(new Identifier(MODID, "block/double_wall_block_x"))
+                );
                 state.variant(
                         new BlockProperty("axis", "z"),
-                        b -> b.model(new Identifier(Refabslab.MODID, "block/double_wall_block_z")));
+                        b -> b.model(new Identifier(MODID, "block/double_wall_block_z"))
+                );
             });
 
             for (Block wall : RefabslabBlocks.MINECRAFT.WALL_SLABS) {
                 MinecraftResourceHelper.addWallAssets(pack, wall);
             }
+
         });
     }
 

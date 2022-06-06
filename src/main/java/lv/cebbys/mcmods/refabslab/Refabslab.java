@@ -13,8 +13,6 @@ public class Refabslab implements ModInitializer, ClientModInitializer {
     static {
         MODID = "refabslab";
         REGISTRY = new CelibRegistrator(MODID);
-        ResourceEntrypoint.registerAssets();
-        ResourceEntrypoint.registerData();
     }
 
     @Override

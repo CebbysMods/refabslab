@@ -1,6 +1,5 @@
 package lv.cebbys.mcmods.refabslab.content.blocks;
 
-import lv.cebbys.mcmods.celib.loggers.CelibLogger;
 import lv.cebbys.mcmods.refabslab.content.entities.CombinedBlockEntity;
 import net.minecraft.block.BlockRenderType;
 import net.minecraft.block.BlockState;
@@ -13,8 +12,11 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.registry.Registry;
 import net.minecraft.world.BlockView;
 import net.minecraft.world.World;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 public abstract class CombinedBlock<E extends CombinedBlockEntity> extends BlockWithEntity {
+    private static final Logger LOGGER = LoggerFactory.getLogger(CombinedBlock.class);
 
     protected CombinedBlock(Settings settings) {
         super(settings);
@@ -52,7 +54,7 @@ public abstract class CombinedBlock<E extends CombinedBlockEntity> extends Block
                 float harvest = this.getHarvestSpeed(player, entity);
                 return hardness == -1 ? 0.0F : speed / hardness / harvest;
             } catch (Exception e) {
-                CelibLogger.info(e, "Failed to cast BlockEntity to type");
+                LOGGER.error("Failed to cast BlockEntity to type", e);
             }
         }
         return super.calcBlockBreakingDelta(state, player, world, pos);
@@ -77,7 +79,7 @@ public abstract class CombinedBlock<E extends CombinedBlockEntity> extends Block
                     world.spawnEntity(new ItemEntity(world, x, y, z, new ItemStack(bottomState.getBlock())));
                 }
             } catch (Exception e) {
-                CelibLogger.info(e, "Failed to cast BlockEntity to type");
+                LOGGER.error("Failed to cast BlockEntity to type", e);
             }
         }
         super.onBreak(world, pos, state, player);

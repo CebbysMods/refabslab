@@ -1,7 +1,6 @@
 package lv.cebbys.mcmods.refabslab.content;
 
 import com.google.common.collect.ImmutableList;
-import lv.cebbys.mcmods.celib.loggers.CelibLogger;
 import lv.cebbys.mcmods.refabslab.content.blocks.DoubleSlabBlock;
 import lv.cebbys.mcmods.refabslab.content.blocks.DoubleWallBlock;
 import lv.cebbys.mcmods.refabslab.content.blocks.WallBlock;
@@ -15,6 +14,8 @@ import net.minecraft.item.ItemGroup;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.registry.Registry;
 import org.jetbrains.annotations.Nullable;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -22,6 +23,8 @@ import java.util.List;
 import static lv.cebbys.mcmods.refabslab.Refabslab.REGISTRY;
 
 public class RefabslabBlocks {
+    private static final Logger LOGGER = LoggerFactory.getLogger(RefabslabBlocks.class);
+
     public static final Block DOUBLE_WALL;
     public static final Block DOUBLE_SLAB;
     public static final MinecraftWalls MINECRAFT;
@@ -31,7 +34,7 @@ public class RefabslabBlocks {
 
     static {
         DOUBLE_WALL = REGISTRY.registerBlock("double_wall_block", new DoubleWallBlock());
-        DOUBLE_SLAB = REGISTRY.registerBlock("double_slab_block", new DoubleSlabBlock(s -> s.breakByHand(false)));
+        DOUBLE_SLAB = REGISTRY.registerBlock("double_slab_block", new DoubleSlabBlock(s -> s));
 
         MINECRAFT = new MinecraftWalls();
         BLOCKUS = isModLoaded("blockus") ? new BlockusWalls() : null;
@@ -59,11 +62,11 @@ public class RefabslabBlocks {
         public final Block WARPED_WALL_SLAB = registerVanillaWall(Blocks.WARPED_SLAB);
 
         private MinecraftWalls() {
-            CelibLogger.info("Registering Minecraft wall slab blocks");
+            LOGGER.info("Registering Minecraft wall slab blocks");
             WALL_SLABS = ImmutableList.copyOf(this.TEMP_LIST);
         }
 
-        protected Block registerVanillaWall(Block block) {
+        private Block registerVanillaWall(Block block) {
             if (block instanceof SlabBlock slab) {
                 Identifier slabIdentifier = Registry.BLOCK.getId(block);
                 String wallName = slabIdentifier.getPath().replaceAll("slab", "wall_slab");
@@ -85,7 +88,7 @@ public class RefabslabBlocks {
     public static final class BlockusWalls {
 
         private BlockusWalls() {
-            CelibLogger.info("Registering Blockus wall slab blocks");
+            LOGGER.info("Registering Blockus wall slab blocks");
         }
     }
 }

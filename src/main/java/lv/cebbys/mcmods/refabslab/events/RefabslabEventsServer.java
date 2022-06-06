@@ -23,7 +23,7 @@ public final class RefabslabEventsServer extends RefabslabEvents {
             BlockPos pos = data.readBlockPos();
             SlabBlock bottom = (SlabBlock) Registry.BLOCK.get(data.readIdentifier());
             SlabBlock top = (SlabBlock) Registry.BLOCK.get(data.readIdentifier());
-            World world = player.getServerWorld();
+            World world = player.getWorld();
 
             server.execute(() -> {
                 if (!player.isCreative() && !player.isSpectator()) {
@@ -36,7 +36,7 @@ public final class RefabslabEventsServer extends RefabslabEvents {
                 DoubleSlabEntity entity = new DoubleSlabEntity(bottom, top, pos, state);
                 world.addBlockEntity(entity);
                 entity.setWorld(world);
-                entity.sync();
+                entity.markDirty();
 
                 BlockSoundGroup group = top.getDefaultState().getSoundGroup();
                 world.playSound(null, pos, group.getPlaceSound(), SoundCategory.BLOCKS,
@@ -50,7 +50,7 @@ public final class RefabslabEventsServer extends RefabslabEvents {
             WallBlock inventory = (WallBlock) Registry.BLOCK.get(buf.readIdentifier());
             boolean isXAxis = buf.readBoolean();
             boolean isNegative = buf.readBoolean();
-            World world = player.getServerWorld();
+            World world = player.getWorld();
 
             server.execute(() -> {
                 if (!player.isCreative() && !player.isSpectator()) {
@@ -66,7 +66,7 @@ public final class RefabslabEventsServer extends RefabslabEvents {
                 DoubleWallEntity entity = new DoubleWallEntity(base, extend, pos, doubleWallState);
                 world.addBlockEntity(entity);
                 entity.setWorld(world);
-                entity.sync();
+                entity.markDirty();
 
                 BlockSoundGroup group = inventory.getDefaultState().getSoundGroup();
                 world.playSound(null, pos, group.getPlaceSound(), SoundCategory.BLOCKS,

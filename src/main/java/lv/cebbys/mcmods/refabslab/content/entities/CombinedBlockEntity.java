@@ -1,17 +1,15 @@
 package lv.cebbys.mcmods.refabslab.content.entities;
 
-import net.fabricmc.fabric.api.block.entity.BlockEntityClientSerializable;
+import lv.cebbys.mcmods.celib.components.blockentity.ClientSyncBlockEntity;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
-import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.block.entity.BlockEntityType;
-import net.minecraft.client.world.ClientWorld;
 import net.minecraft.nbt.NbtCompound;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.registry.Registry;
 
-public abstract class CombinedBlockEntity<T extends Block> extends BlockEntity implements BlockEntityClientSerializable {
+public abstract class CombinedBlockEntity<T extends Block> extends ClientSyncBlockEntity {
 
     private Identifier base;
     private Identifier extend;
@@ -34,15 +32,6 @@ public abstract class CombinedBlockEntity<T extends Block> extends BlockEntity i
         return this.extend;
     }
 
-    @Override
-    public NbtCompound writeNbt(NbtCompound tag) {
-        tag = super.writeNbt(tag);
-        if (this.getBase() != null && this.getExtend() != null) {
-            tag.putString(this.getBaseIdentifier(), this.getBase().toString());
-            tag.putString(this.getExtendIdentifier(), this.getExtend().toString());
-        }
-        return tag;
-    }
 
     @Override
     public void readNbt(NbtCompound tag) {
@@ -54,16 +43,11 @@ public abstract class CombinedBlockEntity<T extends Block> extends BlockEntity i
     }
 
     @Override
-    public void fromClientTag(NbtCompound tag) {
-        this.readNbt(tag);
-        if (this.getWorld() instanceof ClientWorld) {
-            ((ClientWorld) this.getWorld()).scheduleBlockRenders(this.getPos().getX(), this.getPos().getY(), this.getPos().getZ());
+    protected void writeNbt(NbtCompound tag) {
+        super.writeNbt(tag);
+        if (this.getBase() != null && this.getExtend() != null) {
+            tag.putString(this.getBaseIdentifier(), this.getBase().toString());
+            tag.putString(this.getExtendIdentifier(), this.getExtend().toString());
         }
     }
-
-    @Override
-    public NbtCompound toClientTag(NbtCompound tag) {
-        return this.writeNbt(tag);
-    }
-
 }

@@ -1,9 +1,9 @@
 package lv.cebbys.mcmods.refabslab.resources.helpers;
 
-import lv.cebbys.mcmods.celib.respro.imp.builders.AssetPackBuilder;
-import lv.cebbys.mcmods.celib.respro.imp.utilities.BlockProperty;
 import lv.cebbys.mcmods.refabslab.utilities.IdentifierUtils;
 import lv.cebbys.mcmods.refabslab.utilities.ModNamespace;
+import lv.cebbys.mcmods.respro.imp.builders.assetpack.AssetPackBuilder;
+import lv.cebbys.mcmods.respro.imp.component.BlockProperty;
 import net.minecraft.block.Block;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.registry.Registry;

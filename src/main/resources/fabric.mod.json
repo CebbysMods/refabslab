@@ -1,7 +1,7 @@
 {
   "schemaVersion": 1,
   "id": "refabslab",
-  "version": "${mod_version}",
+  "version": "${version}",
   "name": "Refabricated Slabs",
   "description": "Mix and match slabs as you want!",
   "authors": [
@@ -20,18 +20,17 @@
     ],
     "client": [
       "lv.cebbys.mcmods.refabslab.Refabslab"
-    ],
-    "rrp:pregen": [
-      "lv.cebbys.mcmods.refabslab.resources.ResourceEntrypoint"
     ]
   },
   "mixins": [
     "refabslab.mixins.json"
   ],
   "depends": {
-    "fabricloader": ">=0.7.4",
+    "fabricloader": ">=0.13.0",
     "fabric": "*",
-    "minecraft": "1.17.x"
+    "minecraft": "1.18.x",
+    "celib": ">=1.0.0",
+    "respro": ">=0.1.1"
   },
   "suggests": {
     "blockus": "*",

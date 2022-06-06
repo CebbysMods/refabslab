@@ -11,7 +11,7 @@ public class RefabslabSlabBlocks {
     public static final Block HAND_DOUBLE_SLAB;
 
     static {
-        DOUBLE_SLAB = REGISTRY.registerBlock("double_slab_block", new DoubleSlabBlock(s -> s.breakByHand(false)));
-        HAND_DOUBLE_SLAB = REGISTRY.registerBlock("hand_double_slab_block", new DoubleSlabBlock(s -> s.breakByHand(false)));
+        DOUBLE_SLAB = REGISTRY.registerBlock("double_slab_block", new DoubleSlabBlock(s -> s));
+        HAND_DOUBLE_SLAB = REGISTRY.registerBlock("hand_double_slab_block", new DoubleSlabBlock(s -> s));
     }
 }

@@ -1,6 +1,5 @@
 package lv.cebbys.mcmods.refabslab.content.blocks;
 
-import lv.cebbys.mcmods.celib.respro.imp.loggers.ResproLogger;
 import lv.cebbys.mcmods.celib.utilities.CelibBlockPos;
 import lv.cebbys.mcmods.refabslab.content.RefabslabBlocks;
 import lv.cebbys.mcmods.refabslab.events.RefabslabEventsClient;
@@ -112,7 +111,7 @@ public class WallBlock extends RefabslabBlock {
         World world = context.getWorld();
         BlockPos pos = context.getBlockPos();
         Item heldItem = context.getStack().getItem();
-        if(heldItem instanceof BlockItem heldBlockItem) {
+        if (heldItem instanceof BlockItem heldBlockItem) {
             BlockState heldState = heldBlockItem.getBlock().getDefaultState();
             if (heldState.getBlock() instanceof WallBlock && placedState.getBlock() instanceof WallBlock) {
                 BlockState doubleWallState = RefabslabBlocks.DOUBLE_WALL.getDefaultState();
@@ -128,10 +127,10 @@ public class WallBlock extends RefabslabBlock {
                         double[] values;
                         Direction.Axis sideAxis;
                         if (placedFacing.getAxis().equals(X)) {
-                            values = new double[] {pos.getX(), hitPos.getX(), pos.getZ(), hitPos.getZ()};
+                            values = new double[]{pos.getX(), hitPos.getX(), pos.getZ(), hitPos.getZ()};
                             sideAxis = Z;
                         } else {
-                            values = new double[] {pos.getZ(), hitPos.getZ(), pos.getX(), hitPos.getX()};
+                            values = new double[]{pos.getZ(), hitPos.getZ(), pos.getX(), hitPos.getX()};
                             sideAxis = X;
                         }
                         if (hitFacing.equals(placedFacing)) {

@@ -1,19 +1,23 @@
 plugins {
-    id 'java'
-    id 'fabric-loom'
+    id 'fabric-loom' version '0.10-SNAPSHOT'
+    id 'maven-publish'
 }
 
-group = project.maven_group
+sourceCompatibility = JavaVersion.VERSION_17
+targetCompatibility = JavaVersion.VERSION_17
+
+archivesBaseName = project.archives_base_name
 version = project.mod_version
-archivesBaseName = project.mod_name
+group = project.maven_group
 
 repositories {
-}
-
-processResources {
-    inputs.property("mod_version", project.mod_version)
-    filesMatching("fabric.mod.json") {
-        expand "mod_version": project.mod_version
+    maven {
+        name = "Cebbys Repo"
+        url = "https://prod-cebbys-repomanager.herokuapp.com"
+    }
+    maven {
+        name = 'Ladysnake Mods'
+        url = 'https://ladysnake.jfrog.io/artifactory/mods'
     }
 }
 
@@ -23,12 +27,20 @@ dependencies {
     modImplementation "net.fabricmc:fabric-loader:${project.loader_version}"
     modImplementation "net.fabricmc.fabric-api:fabric-api:${project.fabric_version}"
 
-    implementation project(':mods:celib:lib-mod')
-    implementation project(':mods:celib:respro-mod')
+    modImplementation "lv.cebbys.mcmods:celib:1.0.0"
+    modImplementation "lv.cebbys.mcmods:respro:0.1.1"
 }
 
-test {
-    useJUnitPlatform()
+processResources {
+    inputs.property "version", project.version
+
+    filesMatching("fabric.mod.json") {
+        expand "version": project.version
+    }
+}
+
+tasks.withType(JavaCompile).configureEach {
+    it.options.release = 17
 }
 
 java {
@@ -38,5 +50,23 @@ java {
 jar {
     from("LICENSE") {
         rename { "${it}_${project.archivesBaseName}" }
+    }
+}
+
+publishing {
+    publications {
+        mavenJava(MavenPublication) {
+            from components.java
+        }
+    }
+
+    repositories {
+        maven {
+            credentials {
+                username = System.getenv("REPO_USERNAME")
+                password = System.getenv("REPO_PASSWORD")
+            }
+            url = "https://prod-cebbys-repomanager.herokuapp.com"
+        }
     }
 }

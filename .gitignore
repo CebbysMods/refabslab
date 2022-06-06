@@ -31,6 +31,5 @@ bin/
 # fabric
 
 run/
-
-# other
-**/indigo-renderer.properties
+backupSrc/
+remappedSrc/

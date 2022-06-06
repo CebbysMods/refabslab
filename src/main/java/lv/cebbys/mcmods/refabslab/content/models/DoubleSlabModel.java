@@ -53,7 +53,7 @@ public class DoubleSlabModel extends SimpleCombinedModel {
                 builder.addComponent(a -> true, baseModel);
                 builder.addComponent(a -> true, extendModel);
                 context.fallbackConsumer().accept(builder.build());
-                view.getLightingProvider().addLightSource(pos, this.getLightLevel(base, extend));
+//                view.getLightingProvider().addLightSource(pos, this.getLightLevel(base, extend));
             }
         }
     }
