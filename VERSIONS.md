@@ -35,4 +35,12 @@
 > * Wall block item model generation based on existing models.
 > * Block model generation based on existing models.
 
+## Version 0.6.1 - The Forgotten Wall Update
+
+> *Changes:*
+> * Removed wall slabs. Make the mod simple and working.
+> * Replaced block entity data with cardinal chunk api.
+
+> *Fixes:*
+> * Slabs being replaced by any block on right click.
 ---
