@@ -1,7 +1,9 @@
-package lv.cebbys.mcmods.refabslab.mixins;
+package lv.cebbys.mcmods.refabslab.mixin;
 
 import lv.cebbys.mcmods.refabslab.content.RefabslabBlocks;
-import lv.cebbys.mcmods.refabslab.events.RefabslabEventsClient;
+import lv.cebbys.mcmods.refabslab.content.RefabslabComponents;
+import lv.cebbys.mcmods.refabslab.content.block.DoubleSlabBlock;
+import lv.cebbys.mcmods.refabslab.content.component.DoubleSlabComponent;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.ShapeContext;
@@ -16,6 +18,7 @@ import net.minecraft.util.math.Direction;
 import net.minecraft.util.math.Vec3d;
 import net.minecraft.util.registry.Registry;
 import net.minecraft.world.World;
+import org.jetbrains.annotations.NotNull;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
@@ -49,27 +52,36 @@ public abstract class SlabBlockMixin extends Block {
                         top = placed;
                     }
 
-                    BlockState doubleState = RefabslabBlocks.DOUBLE_SLAB.getDefaultState();
+                    BlockState doubleState = RefabslabBlocks.DOUBLE_SLAB.getDefaultState()
+                            .with(DoubleSlabBlock.LIGHT_LEVEL, getLuminance(top, bottom));
                     if (world.canPlace(doubleState, pos, ShapeContext.absent())) {
                         Identifier bottomId = Registry.BLOCK.getId(bottom.getBlock());
                         Identifier topId = Registry.BLOCK.getId(top.getBlock());
-                        if (world.isClient()) {
-                            RefabslabEventsClient.Execute.createDoubleSlabEvent(pos, bottomId, topId);
-                        }
-                        cr.setReturnValue(placed);
+                        DoubleSlabComponent component = RefabslabComponents.DOUBLE_SLAB_QUEUE.get(world.getChunk(pos));
+                        component.setSlabIds(pos, topId, bottomId);
+                        cr.setReturnValue(doubleState);
                         cr.cancel();
                     }
                 }
             }
         } catch (Exception e) {
-//            CelibLogger.error(e, "Failed to place double slab block");
+            System.out.println(e.getMessage() + ": " + e.getCause());
         }
     }
 
+    private int getLuminance(@NotNull BlockState a, @NotNull BlockState b) {
+        int al = a.getLuminance();
+        int bl = b.getLuminance();
+        int m = Math.max(al, bl);
+        m = Math.min(15, m);
+        m = Math.max(0, m);
+        return m;
+    }
+
     private boolean isValidDoubleSlab(BlockState placed, BlockState inventory) {
-        return !placed.get(SlabBlock.TYPE).equals(SlabType.DOUBLE)
+        return inventory.getBlock() instanceof SlabBlock
+                && !placed.get(SlabBlock.TYPE).equals(SlabType.DOUBLE)
                 && !placed.getBlock().equals(inventory.getBlock());
-//                && SlabUtilities.Blocks.contains(placed.getBlock(), inventory.getBlock());
     }
 
     @Inject(method = "canReplace(Lnet/minecraft/block/BlockState;Lnet/minecraft/item/ItemPlacementContext;)Z", at = @At("HEAD"), cancellable = true)

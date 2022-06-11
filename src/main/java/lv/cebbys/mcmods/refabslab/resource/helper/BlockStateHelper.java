@@ -1,4 +1,4 @@
-package lv.cebbys.mcmods.refabslab.resources.helpers;
+package lv.cebbys.mcmods.refabslab.resource.helper;
 
 public class BlockStateHelper {
 //    public static void addMinecraftWallBlockstate(AssetPackBuilder pack, Block wall) {

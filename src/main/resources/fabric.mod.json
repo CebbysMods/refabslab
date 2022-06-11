@@ -20,6 +20,14 @@
     ],
     "client": [
       "lv.cebbys.mcmods.refabslab.Refabslab"
+    ],
+    "cardinal-components-chunk": [
+      "lv.cebbys.mcmods.refabslab.content.RefabslabComponents"
+    ]
+  },
+  "custom": {
+    "cardinal-components": [
+      "refabslab:double_slabs"
     ]
   },
   "mixins": [

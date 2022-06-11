@@ -1,0 +1,5 @@
+{
+  "variants": {
+    "": { "model": "refabslab:block/test_block" }
+  }
+}

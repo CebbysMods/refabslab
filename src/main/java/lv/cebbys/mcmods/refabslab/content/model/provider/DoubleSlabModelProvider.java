@@ -1,7 +1,7 @@
-package lv.cebbys.mcmods.refabslab.content.models.providers;
+package lv.cebbys.mcmods.refabslab.content.model.provider;
 
 import lv.cebbys.mcmods.refabslab.Refabslab;
-import lv.cebbys.mcmods.refabslab.content.models.DoubleSlabModel;
+import lv.cebbys.mcmods.refabslab.content.model.DoubleSlabModel;
 import net.fabricmc.fabric.api.client.model.ModelProviderContext;
 import net.fabricmc.fabric.api.client.model.ModelResourceProvider;
 import net.minecraft.client.render.model.UnbakedModel;
