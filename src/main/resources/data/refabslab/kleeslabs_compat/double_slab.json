@@ -1,0 +1,7 @@
+{
+  "modid": "refabslab",
+  "converter": "lv.cebbys.mcmods.refabslab.compatibility.kleeslabs.DoubleSlabConverter",
+  "slabs": [
+    "double_slab_block"
+  ]
+}
