@@ -3,7 +3,6 @@ package lv.cebbys.mcmods.refabslab.utility;
 import lv.cebbys.mcmods.refabslab.content.RefabslabComponents;
 import lv.cebbys.mcmods.refabslab.content.component.DoubleSlabComponent;
 import net.minecraft.client.render.chunk.ChunkRendererRegion;
-import net.minecraft.client.world.ClientWorld;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.BlockView;
 import net.minecraft.world.World;
@@ -11,6 +10,7 @@ import net.minecraft.world.chunk.Chunk;
 import org.jetbrains.annotations.Nullable;
 
 import java.lang.reflect.Field;
+import java.util.Arrays;
 
 public class TransformUtils {
     private static final String NULL_STRING = "NULL";
@@ -33,11 +33,11 @@ public class TransformUtils {
 
     @Nullable
     public static DoubleSlabComponent toDoubleSlabComponent(BlockView view, BlockPos pos) {
-        if(view instanceof World world) {
+        if (view instanceof World world) {
             return toDoubleSlabComponent(world, pos);
-        } else if(view instanceof Chunk chunk) {
+        } else if (view instanceof Chunk chunk) {
             return toDoubleSlabComponent(chunk);
-        } else if(view instanceof ChunkRendererRegion region) {
+        } else if (view instanceof ChunkRendererRegion region) {
             return toDoubleSlabComponent(toWorld(region), pos);
         } else {
             return null;
@@ -51,14 +51,17 @@ public class TransformUtils {
 
     @Nullable
     public static DoubleSlabComponent toDoubleSlabComponent(World world, BlockPos pos) {
-        if(world == null || pos == null) return null;
+        if (world == null || pos == null) return null;
         return toDoubleSlabComponent(world.getChunk(pos));
     }
 
     public static World toWorld(ChunkRendererRegion region) {
         try {
             Class<?> regionClass = region.getClass();
-            Field worldField = regionClass.getDeclaredField("world");
+            Field worldField = Arrays.stream(regionClass.getDeclaredFields())
+                    .filter(f -> f.getType().equals(World.class))
+                    .findFirst().orElse(null);
+            if (worldField == null) return null;
             worldField.setAccessible(true);
             return (World) worldField.get(region);
         } catch (Exception ignored) {
