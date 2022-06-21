@@ -19,9 +19,17 @@ repositories {
         name = 'Ladysnake Mods'
         url = 'https://ladysnake.jfrog.io/artifactory/mods'
     }
-    flatDir {
-        dirs 'libs'
-    }
+//    maven {
+//        name = "Balm repository"
+//        url = "https://maven.pkg.github.com/ModdingForBlockheads/Balm"
+//    }
+//    maven {
+//        name = "KleeSlabs repository"
+//        url = "https://maven.pkg.github.com/ModdingForBlockheads/KleeSlabs"
+//    }
+//    flatDir {
+//        dirs 'libs'
+//    }
 }
 
 dependencies {
@@ -30,23 +38,18 @@ dependencies {
     modImplementation "net.fabricmc:fabric-loader:${project.loader_version}"
     modImplementation "net.fabricmc.fabric-api:fabric-api:${project.fabric_version}"
 
-    modImplementation "lv.cebbys.mcmods:celib:1.0.0"
-    modImplementation "lv.cebbys.mcmods:respro:0.1.1"
+    modImplementation "dev.onyxstudios.cardinal-components-api:cardinal-components-base:${project.cardinal_api_version}"
+    modImplementation "dev.onyxstudios.cardinal-components-api:cardinal-components-chunk:${project.cardinal_api_version}"
+    include "dev.onyxstudios.cardinal-components-api:cardinal-components-base:${project.cardinal_api_version}"
+    include "dev.onyxstudios.cardinal-components-api:cardinal-components-chunk:${project.cardinal_api_version}"
 
-    modImplementation "dev.onyxstudios.cardinal-components-api:cardinal-components-base:5.0.0-beta.1"
-    modImplementation "dev.onyxstudios.cardinal-components-api:cardinal-components-world:5.0.0-beta.1"
-    modImplementation "dev.onyxstudios.cardinal-components-api:cardinal-components-chunk:5.0.0-beta.1"
-    include "dev.onyxstudios.cardinal-components-api:cardinal-components-base:5.0.0-beta.1"
-    include "dev.onyxstudios.cardinal-components-api:cardinal-components-world:5.0.0-beta.1"
-    include "dev.onyxstudios.cardinal-components-api:cardinal-components-chunk:5.0.0-beta.1"
+    modImplementation "lv.cebbys.mcmods:celib:${project.celib_version}"
+    modImplementation "lv.cebbys.mcmods:respro:${project.respro_version}"
 
-    modImplementation "net.blay09.mods:kleeslabs-fabric:11.1.1+19"
-    modImplementation "net.blay09.mods:balm-fabric:3.1.0+0"
-
-    compileOnly 'org.projectlombok:lombok:1.18.24'
-    annotationProcessor 'org.projectlombok:lombok:1.18.24'
-    testCompileOnly 'org.projectlombok:lombok:1.18.24'
-    testAnnotationProcessor 'org.projectlombok:lombok:1.18.24'
+    compileOnly "org.projectlombok:lombok:${project.lombok_version}"
+    annotationProcessor "org.projectlombok:lombok:${project.lombok_version}"
+    testCompileOnly "org.projectlombok:lombok:${project.lombok_version}"
+    testAnnotationProcessor "org.projectlombok:lombok:${project.lombok_version}"
 }
 
 processResources {
