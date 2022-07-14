@@ -43,4 +43,17 @@
 
 > *Fixes:*
 > * Slabs being replaced by any block on right click.
+
+## Version 0.6.2 - 0.6.4 - The Missed Documentation Update
+
+> *Fixes:*
+> * Slabs being invisible, because BlockView conversion failure
+> * Missing textures. Because of missing double slab model.
+---
+
+## Version 0.7.0 - Many Shades Of Renderers Update
+
+> *Additions:*
+> * Support for Sodium + Indium
+> * Support for Iris and shaders
 ---

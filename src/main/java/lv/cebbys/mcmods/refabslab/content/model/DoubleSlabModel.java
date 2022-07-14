@@ -7,6 +7,7 @@ import net.minecraft.block.BlockState;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.render.block.BlockModels;
 import net.minecraft.client.render.model.BakedModel;
+import net.minecraft.client.render.model.BakedQuad;
 import net.minecraft.client.render.model.ModelBakeSettings;
 import net.minecraft.client.render.model.ModelLoader;
 import net.minecraft.client.render.model.MultipartBakedModel.Builder;
@@ -15,8 +16,10 @@ import net.minecraft.client.texture.SpriteAtlasTexture;
 import net.minecraft.client.util.SpriteIdentifier;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.math.Direction;
 import net.minecraft.world.BlockRenderView;
 
+import java.util.List;
 import java.util.Random;
 import java.util.function.Function;
 import java.util.function.Supplier;
@@ -51,4 +54,8 @@ public class DoubleSlabModel extends AbstractDoubleSlabModel {
         return this.PARTICLE;
     }
 
+    @Override
+    public List<BakedQuad> getQuads(BlockState state, Direction face, Random random) {
+        return super.getQuads(state, face, random);
+    }
 }
