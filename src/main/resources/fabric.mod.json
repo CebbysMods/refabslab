@@ -39,7 +39,7 @@
     "minecraft": "1.18.x",
     "celib": ">=1.0.0",
     "respro": ">=0.2.0",
-    "cardinal-components-base": ">=5.0.0-beta.1",
-    "cardinal-components-chunk": ">=5.0.0-beta.1"
+    "cardinal-components-base": "4.x.x",
+    "cardinal-components-chunk": "4.x.x"
   }
 }
