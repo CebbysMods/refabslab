@@ -35,11 +35,11 @@
   ],
   "depends": {
     "fabricloader": ">=0.13.0",
-    "fabric": ">=0.56.0+1.18.2",
-    "minecraft": "1.18.x",
-    "celib": ">=1.0.0",
-    "respro": ">=0.2.0",
-    "cardinal-components-base": "4.x.x",
-    "cardinal-components-chunk": "4.x.x"
+    "fabric": ">=0.56.0",
+    "minecraft": "${minecraft_dependency}",
+    "celib": "${celib_dependency}",
+    "respro": "${respro_dependency}",
+    "cardinal-components-base": "${cardinal_api_dependency}",
+    "cardinal-components-chunk": "${cardinal_api_dependency}"
   }
 }

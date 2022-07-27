@@ -10,6 +10,9 @@ archivesBaseName = project.archives_base_name
 version = project.mod_version + "+" + project.minecraft_version
 group = project.maven_group
 
+String celibVersion = project.celib_version + "+" + project.minecraft_version
+String resproVersion = project.respro_version + "+" + project.minecraft_version
+
 repositories {
     maven {
         name = "Cebbys Repo"
@@ -43,8 +46,8 @@ dependencies {
     include "dev.onyxstudios.cardinal-components-api:cardinal-components-base:${project.cardinal_api_version}"
     include "dev.onyxstudios.cardinal-components-api:cardinal-components-chunk:${project.cardinal_api_version}"
 
-    modImplementation "lv.cebbys.mcmods:celib:${project.celib_version}"
-    modImplementation "lv.cebbys.mcmods:respro:${project.respro_version}"
+    modImplementation "lv.cebbys.mcmods:celib:${celibVersion}"
+    modImplementation "lv.cebbys.mcmods:respro:${resproVersion}"
 
     compileOnly "org.projectlombok:lombok:${project.lombok_version}"
     annotationProcessor "org.projectlombok:lombok:${project.lombok_version}"
@@ -53,10 +56,18 @@ dependencies {
 }
 
 processResources {
-    inputs.property "version", project.version
+    var map = Map.of(
+            "version", project.mod_version,
+            "minecraft_dependency", ">=1.16",
+            "celib_dependency", getModDependency(project.celib_version),
+            "respro_dependency", getModDependency(project.respro_version),
+            "cardinal_api_dependency", getModDependency(project.cardinal_api_version)
+    )
+
+    inputs.properties(map)
 
     filesMatching("fabric.mod.json") {
-        expand "version": project.version
+        expand(map)
     }
 }
 
@@ -90,4 +101,18 @@ publishing {
             url = "https://prod-cebbys-repomanager.herokuapp.com"
         }
     }
+}
+
+String getModDependency(Object versionObject) {
+    String version = versionObject.toString()
+    try {
+        StringBuilder out = new StringBuilder()
+        out.append(version.substring(0, version.indexOf(".") + 1))
+        version = version.substring(version.indexOf(".") + 1)
+        if (version.contains(".")) version = version.substring(0, version.indexOf(".") + 1)
+        out.append(version).append("x")
+        return out
+    } catch (Exception e) {
+    }
+    throw new RuntimeException("Invalid mod version: " + version);
 }
