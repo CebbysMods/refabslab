@@ -56,7 +56,10 @@
 > * Support for Sodium + Indium.
 > * Support for Iris and shaders.
 
-## Version 0.7.1 - 0.7.3 - Ouh Those Fixes
+## Version 0.7.1 - 0.7.4 - Ouh Those Fixes
+
+> *Changes:*
+> * Updated Celib mod to version 1.1.0.
 
 > *Fixes:*
 > * Changed Cardinal API version to make the Refabslab mod compatible with other mods.
