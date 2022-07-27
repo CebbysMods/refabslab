@@ -10,6 +10,7 @@ import net.minecraft.block.ShapeContext;
 import net.minecraft.block.SlabBlock;
 import net.minecraft.block.enums.SlabType;
 import net.minecraft.item.BlockItem;
+import net.minecraft.item.Item;
 import net.minecraft.item.ItemPlacementContext;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.Identifier;
@@ -90,26 +91,28 @@ public abstract class SlabBlockMixin extends Block {
         BlockPos pos = ctx.getBlockPos();
         World world = ctx.getWorld();
         BlockState placed = world.getBlockState(pos);
-        if (placed.getBlock() instanceof SlabBlock) {
-            ItemStack placeable = ctx.getStack();
-            BlockState inventory = ((BlockItem) placeable.getItem()).getBlock().getDefaultState();
-            if (this.isValidDoubleSlab(placed, inventory)) {
-                BlockState doubleState = RefabslabBlocks.DOUBLE_SLAB.getDefaultState();
-                if (world.canPlace(doubleState, pos, ShapeContext.absent())) {
-                    Direction placementFace = ctx.getSide();
-                    Direction s = ctx.getSide();
-                    Vec3d hit = ctx.getHitPos();
-                    cr.setReturnValue(pos.getX() == hit.getX() && s == Direction.EAST
-                            || pos.getX() + 1 == hit.getX() && s == Direction.WEST
-                            || pos.getY() == hit.getY() && s == Direction.UP
-                            || pos.getY() + 1 == hit.getY() && s == Direction.DOWN
-                            || pos.getZ() == hit.getZ() && s == Direction.SOUTH
-                            || pos.getZ() + 1 == hit.getZ() && s == Direction.NORTH
-                            || type == SlabType.TOP && placementFace == Direction.DOWN
-                            || type == SlabType.BOTTOM && placementFace == Direction.UP);
-                    cr.cancel();
-                }
-            }
-        }
+        if (!(placed.getBlock() instanceof SlabBlock)) return;
+
+        Item item = ctx.getStack().getItem();
+        if (!(item instanceof BlockItem)) return;
+
+        BlockState inventory = ((BlockItem) item).getBlock().getDefaultState();
+        if (!this.isValidDoubleSlab(placed, inventory)) return;
+
+        BlockState doubleState = RefabslabBlocks.DOUBLE_SLAB.getDefaultState();
+        if (!world.canPlace(doubleState, pos, ShapeContext.absent())) return;
+
+        Direction placementFace = ctx.getSide();
+        Direction s = ctx.getSide();
+        Vec3d hit = ctx.getHitPos();
+        cr.setReturnValue(pos.getX() == hit.getX() && s == Direction.EAST
+                || pos.getX() + 1 == hit.getX() && s == Direction.WEST
+                || pos.getY() == hit.getY() && s == Direction.UP
+                || pos.getY() + 1 == hit.getY() && s == Direction.DOWN
+                || pos.getZ() == hit.getZ() && s == Direction.SOUTH
+                || pos.getZ() + 1 == hit.getZ() && s == Direction.NORTH
+                || type == SlabType.TOP && placementFace == Direction.DOWN
+                || type == SlabType.BOTTOM && placementFace == Direction.UP);
+        cr.cancel();
     }
 }

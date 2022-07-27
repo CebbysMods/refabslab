@@ -7,8 +7,6 @@
 > *Additions:*
 > * Double slab block.
 
----
-
 ## Version 0.5.0 - Correct Tooling Update
 
 > *Additions:*
@@ -22,15 +20,11 @@
 > * Removed artifice dependency. Now uses Celib 0.5.0 resource generator.
 > * Removed multiple mixin classes making mod more cross mod compatible.
 
----
-
 ## Version 0.5.1 - Bugfixes
 
 > *Fixes:*
 > * When standing on slab and placing another one makes the existing slab to be replaced.
 > * When in creative game mode, when placing a slab on top of slab consumes slab from inventory.
-
----
 
 ## Version 0.6.0 - The Wall Update
 
@@ -41,8 +35,6 @@
 > * Wall block item model generation based on existing models.
 > * Block model generation based on existing models.
 
----
-
 ## Version 0.6.1 - The Forgotten Wall Update
 
 > *Changes:*
@@ -52,26 +44,20 @@
 > *Fixes:*
 > * Slabs being replaced by any block on right click.
 
----
-
 ## Version 0.6.2 - 0.6.4 - The Missed Documentation Update
 
 > *Fixes:*
-> * Slabs being invisible, because BlockView conversion failure
+> * Slabs being invisible, because BlockView conversion failure.
 > * Missing textures. Because of missing double slab model.
-
----
 
 ## Version 0.7.0 - Many Shades Of Renderers Update
 
 > *Additions:*
-> * Support for Sodium + Indium
-> * Support for Iris and shaders
+> * Support for Sodium + Indium.
+> * Support for Iris and shaders.
 
----
-
-## Version 0.7.2 - Ouh Those Fixes
+## Version 0.7.1 - 0.7.3 - Ouh Those Fixes
 
 > *Fixes:*
-> * Changed Cardinal API version to make the Refabslab mod compatible with other mods
----
+> * Changed Cardinal API version to make the Refabslab mod compatible with other mods.
+> * Fixed issue where game would crash if sand block landed on lower slab block.
