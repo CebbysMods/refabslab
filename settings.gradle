@@ -8,3 +8,6 @@ pluginManagement {
         gradlePluginPortal()
     }
 }
+
+include(":bridge:api")
+include(":bridge:1-19")

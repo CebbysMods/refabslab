@@ -1,11 +1,10 @@
 package lv.cebbys.mcmods.refabslab.content;
 
-import lv.cebbys.mcmods.celib.utilities.CelibRegistryTypes;
 import lv.cebbys.mcmods.refabslab.content.block.DoubleSlabBlock;
-import net.minecraft.block.Block;
-import net.minecraft.item.Item;
+import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.Blocks;
 
-import static lv.cebbys.mcmods.refabslab.Refabslab.REGISTRY;
+import static lv.cebbys.mcmods.refabslab.RefabslabCommon.REGISTRY;
 
 public class RefabslabBlocks {
     public static final Block DOUBLE_SLAB;

@@ -14,30 +14,16 @@ String celibVersion = project.celib_version + "+" + project.minecraft_version
 String resproVersion = project.respro_version + "+" + project.minecraft_version
 
 repositories {
-    maven {
-        name = "Cebbys Repo"
-        url = "https://prod-cebbys-repomanager.herokuapp.com"
-    }
+    mavenLocal()
     maven {
         name = 'Ladysnake Mods'
         url = 'https://ladysnake.jfrog.io/artifactory/mods'
     }
-//    maven {
-//        name = "Balm repository"
-//        url = "https://maven.pkg.github.com/ModdingForBlockheads/Balm"
-//    }
-//    maven {
-//        name = "KleeSlabs repository"
-//        url = "https://maven.pkg.github.com/ModdingForBlockheads/KleeSlabs"
-//    }
-//    flatDir {
-//        dirs 'libs'
-//    }
 }
 
 dependencies {
     minecraft "com.mojang:minecraft:${project.minecraft_version}"
-    mappings "net.fabricmc:yarn:${project.yarn_mappings}:v2"
+    mappings loom.officialMojangMappings()
     modImplementation "net.fabricmc:fabric-loader:${project.loader_version}"
     modImplementation "net.fabricmc.fabric-api:fabric-api:${project.fabric_version}"
 
@@ -46,8 +32,8 @@ dependencies {
     include "dev.onyxstudios.cardinal-components-api:cardinal-components-base:${project.cardinal_api_version}"
     include "dev.onyxstudios.cardinal-components-api:cardinal-components-chunk:${project.cardinal_api_version}"
 
-    modImplementation "lv.cebbys.mcmods:celib:${celibVersion}"
-    modImplementation "lv.cebbys.mcmods:respro:${resproVersion}"
+    modImplementation "lv.cebbys.mcmods:celib:${project.celib_version}"
+    modImplementation "lv.cebbys.mcmods:respro:${project.respro_version}"
 
     compileOnly "org.projectlombok:lombok:${project.lombok_version}"
     annotationProcessor "org.projectlombok:lombok:${project.lombok_version}"
@@ -59,8 +45,8 @@ processResources {
     var map = Map.of(
             "version", project.mod_version,
             "minecraft_dependency", ">=1.16",
-            "celib_dependency", getModDependency(project.celib_version),
-            "respro_dependency", getModDependency(project.respro_version),
+            "celib_dependency", project.celib_version,
+            "respro_dependency", project.respro_version,
             "cardinal_api_dependency", getModDependency(project.cardinal_api_version)
     )
 
@@ -89,16 +75,6 @@ publishing {
     publications {
         mavenJava(MavenPublication) {
             from components.java
-        }
-    }
-
-    repositories {
-        maven {
-            credentials {
-                username = System.getenv("REPO_USERNAME")
-                password = System.getenv("REPO_PASSWORD")
-            }
-            url = "https://prod-cebbys-repomanager.herokuapp.com"
         }
     }
 }

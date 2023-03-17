@@ -1,25 +1,24 @@
 package lv.cebbys.mcmods.refabslab.utility;
 
-import lv.cebbys.mcmods.refabslab.Refabslab;
-import lv.cebbys.mcmods.refabslab.compatibility.sodium.SodiumCompatibility;
-import lv.cebbys.mcmods.refabslab.content.RefabslabComponents;
-import lv.cebbys.mcmods.refabslab.content.component.DoubleSlabComponent;
-import net.minecraft.client.render.chunk.ChunkRendererRegion;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.world.BlockView;
-import net.minecraft.world.World;
-import net.minecraft.world.chunk.Chunk;
+import lv.cebbys.mcmods.refabslab.RefabslabCommon;
+import lv.cebbys.mcmods.refabslab.content.model.multipart.RefabslabBakedModel;
+import net.minecraft.client.resources.model.BakedModel;
+import net.minecraft.client.resources.model.MultiPartBakedModel;
+import net.minecraft.core.BlockPos;
+import net.minecraft.world.level.block.state.BlockState;
+import org.apache.commons.lang3.tuple.Pair;
 import org.jetbrains.annotations.Nullable;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import java.lang.reflect.Field;
 import java.util.Arrays;
+import java.util.List;
+import java.util.function.Predicate;
 
 public class TransformUtils {
-    private static final Logger LOGGER = LoggerFactory.getLogger(Refabslab.class);
+    private static final Logger LOGGER = LoggerFactory.getLogger(RefabslabCommon.class);
     private static final String NULL_STRING = "NULL";
-    
+
     public static String toString(BlockPos pos) {
         if (pos == null) return NULL_STRING;
         return String.format("%d;%d;%d", pos.getX(), pos.getY(), pos.getZ());
@@ -37,48 +36,21 @@ public class TransformUtils {
         );
     }
 
-    @Nullable
-    public static DoubleSlabComponent toDoubleSlabComponent(BlockView view, BlockPos pos) {
-        if (view instanceof World world) {
-            return toDoubleSlabComponent(world, pos);
-        } else if (view instanceof Chunk chunk) {
-            return toDoubleSlabComponent(chunk);
-        } else if (view instanceof ChunkRendererRegion region) {
-            return toDoubleSlabComponent(toWorld(region), pos);
-        } else if (SodiumCompatibility.isWorldSlice(view)) {
-            return toDoubleSlabComponent(SodiumCompatibility.toWorld(view), pos);
-        } else {
-            LOGGER.error(
-                    "Failed to transform {} to DoubleSlabComponent. {}", view.getClass().getName(),
-                    "If you see this exception, please notify the developer of Refabslab mod"
-            );
-            return null;
-        }
-    }
-
-    @Nullable
-    public static DoubleSlabComponent toDoubleSlabComponent(Chunk chunk) {
-        return RefabslabComponents.DOUBLE_SLAB_QUEUE.maybeGet(chunk).orElse(null);
-    }
-
-    @Nullable
-    public static DoubleSlabComponent toDoubleSlabComponent(World world, BlockPos pos) {
-        if (world == null || pos == null) return null;
-        return toDoubleSlabComponent(world.getChunk(pos));
-    }
-
-    @Nullable
-    public static World toWorld(ChunkRendererRegion region) {
+    public static RefabslabBakedModel toRefabslabBakedModel(MultiPartBakedModel model) {
         try {
-            Class<?> regionClass = region.getClass();
-            Field worldField = Arrays.stream(regionClass.getDeclaredFields())
-                    .filter(f -> f.getType().equals(World.class))
-                    .findFirst().orElse(null);
-            if (worldField == null) return null;
-            worldField.setAccessible(true);
-            return (World) worldField.get(region);
-        } catch (Exception ignored) {
-            return null;
+            var fields = Arrays.asList(MultiPartBakedModel.class.getDeclaredFields());
+            var selectorFields = fields.stream()
+                    .filter((var field) -> List.class.isAssignableFrom(field.getType()))
+                    .toList();
+            if (selectorFields.size() != 1) {
+                throw new RuntimeException("Multiple fields matching selectors");
+            }
+            var selector = selectorFields.get(0);
+            selector.setAccessible(true);
+            var selectorValue = selector.get(model);
+            return new RefabslabBakedModel((List<Pair<Predicate<BlockState>, BakedModel>>) selectorValue);
+        } catch (Exception e) {
+            throw new RuntimeException("Failed to transform model to refabslab model", e);
         }
     }
 }

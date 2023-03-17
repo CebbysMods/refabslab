@@ -5,16 +5,16 @@ import dev.onyxstudios.cca.api.v3.chunk.ChunkComponentInitializer;
 import dev.onyxstudios.cca.api.v3.component.ComponentKey;
 import dev.onyxstudios.cca.api.v3.component.ComponentRegistry;
 import lv.cebbys.mcmods.refabslab.content.component.DoubleSlabComponent;
-import net.minecraft.util.Identifier;
+import net.minecraft.resources.ResourceLocation;
 
-import static lv.cebbys.mcmods.refabslab.Refabslab.MODID;
+import static lv.cebbys.mcmods.refabslab.RefabslabCommon.MODID;
 
 public class RefabslabComponents implements ChunkComponentInitializer {
     public static final ComponentKey<DoubleSlabComponent> DOUBLE_SLAB_QUEUE;
 
     static {
         DOUBLE_SLAB_QUEUE = ComponentRegistry.getOrCreate(
-                new Identifier(MODID, "double_slabs"),
+                new ResourceLocation(MODID, "double_slabs"),
                 DoubleSlabComponent.class
         );
     }
