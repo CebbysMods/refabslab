@@ -7,11 +7,11 @@ import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.StateDefinition;
-import net.minecraft.world.level.block.state.properties.IntegerProperty;
 import net.minecraft.world.level.material.Material;
 
+import static lv.cebbys.mcmods.refabslab.bridge.constant.RefabslabConstants.LIGHT_LEVEL;
+
 public class DoubleSlabBlock extends AbstractDoubleSlabBlock {
-    public static final IntegerProperty LIGHT_LEVEL;
 
     public DoubleSlabBlock() {
         super(FabricBlockSettings.of(Material.STONE).lightLevel(s -> s.getValue(LIGHT_LEVEL)));
@@ -45,9 +45,5 @@ public class DoubleSlabBlock extends AbstractDoubleSlabBlock {
     @Override
     protected boolean canPlayerHarvest(BlockState top, BlockState bottom, Player player) {
         return player.hasCorrectToolForDrops(top) || player.hasCorrectToolForDrops(bottom);
-    }
-
-    static {
-        LIGHT_LEVEL = IntegerProperty.create("light_level", 0, 15);
     }
 }

@@ -1,12 +1,9 @@
 {
     "required": true,
     "minVersion": "0.8",
-    "package": "lv.cebbys.mcmods.refabslab.mixin",
+    "package": "lv.cebbys.mcmods.refabslab.bridge.mixin",
+    "plugin": "lv.cebbys.mcmods.refabslab.RefabslabMixinPlugin",
     "compatibilityLevel": "JAVA_17",
-    "mixins": [
-        "SlabBlockMixin",
-        "SlabBlockParticleMixin"
-    ],
     "injectors": {
         "defaultRequire": 1
     }

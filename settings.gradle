@@ -9,5 +9,12 @@ pluginManagement {
     }
 }
 
-include(":bridge:api")
-include(":bridge:1-19")
+void initProject(String name) {
+    var fullName = String.format(":bridge:%s", name)
+    var idName = String.format("refabslab-%s", name.replace(".", "-"))
+    include(fullName)
+    project(fullName).name = idName;
+}
+
+initProject("api")
+initProject("1.19")

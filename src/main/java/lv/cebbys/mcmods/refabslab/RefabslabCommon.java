@@ -18,6 +18,12 @@ public class RefabslabCommon implements ModInitializer {
 
     @Override
     public void onInitialize() {
+        if (RefabslabMixinPlugin.hasInitializationFailure()) {
+            var failure = RefabslabMixinPlugin.getInitializationFailure();
+            LOGGER.error("Stopping the 'refabslab' mod initialization because of mixin failure", failure);
+            throw new RuntimeException("Failed to initialize refabslab mod", failure);
+        }
+
         LOGGER.info("Initializing Refabslab common side");
         new RefabslabBlocks();
         ResourceEntrypoint.registerData();

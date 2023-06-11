@@ -1,5 +1,5 @@
 plugins {
-    id 'fabric-loom' version '0.12-SNAPSHOT'
+    id 'fabric-loom' version '1.1-SNAPSHOT'
     id 'maven-publish'
 }
 
@@ -9,9 +9,6 @@ targetCompatibility = JavaVersion.VERSION_17
 archivesBaseName = project.archives_base_name
 version = project.mod_version + "+" + project.minecraft_version
 group = project.maven_group
-
-String celibVersion = project.celib_version + "+" + project.minecraft_version
-String resproVersion = project.respro_version + "+" + project.minecraft_version
 
 repositories {
     mavenLocal()
@@ -32,8 +29,18 @@ dependencies {
     include "dev.onyxstudios.cardinal-components-api:cardinal-components-base:${project.cardinal_api_version}"
     include "dev.onyxstudios.cardinal-components-api:cardinal-components-chunk:${project.cardinal_api_version}"
 
+    modImplementation project(":bridge:refabslab-api")
+    include project(":bridge:refabslab-api")
+
+//    modImplementation project(":bridge:refabslab-1-19")
+//    include project(":bridge:refabslab-1-19")
+    modImplementation "lv.cebbys.mcmods:refabslab-1-19:1.0.0"
+    include "lv.cebbys.mcmods:refabslab-1-19:1.0.0"
+
     modImplementation "lv.cebbys.mcmods:celib:${project.celib_version}"
     modImplementation "lv.cebbys.mcmods:respro:${project.respro_version}"
+
+    implementation 'org.apache.commons:commons-text:1.10.0'
 
     compileOnly "org.projectlombok:lombok:${project.lombok_version}"
     annotationProcessor "org.projectlombok:lombok:${project.lombok_version}"
@@ -91,4 +98,16 @@ String getModDependency(Object versionObject) {
     } catch (Exception e) {
     }
     throw new RuntimeException("Invalid mod version: " + version);
+}
+
+subprojects {
+    task generateFabricModJson() {
+        doLast {
+            String message = "Generating '" + project.name + "' fabric.mod.json"
+            System.out.println(message)
+        }
+    }
+    compileJava {
+        dependsOn tasks.named("generateFabricModJson")
+    }
 }

@@ -1,6 +1,7 @@
 package lv.cebbys.mcmods.refabslab.resource;
 
 import lv.cebbys.mcmods.refabslab.RefabslabCommon;
+import lv.cebbys.mcmods.refabslab.bridge.constant.RefabslabConstants;
 import lv.cebbys.mcmods.refabslab.content.block.DoubleSlabBlock;
 import lv.cebbys.mcmods.respro.api.ResproRegistry;
 import net.fabricmc.loader.api.FabricLoader;
@@ -32,7 +33,7 @@ public class ResourceEntrypoint {
                 for (int i = 0; i < 16; i++) {
                     Integer lightLevel = i;
                     variants.setVariant(
-                            property -> property.setProperty(DoubleSlabBlock.LIGHT_LEVEL, lightLevel),
+                            property -> property.setProperty(RefabslabConstants.LIGHT_LEVEL, lightLevel),
                             variant -> variant.setModel(modelId)
                     );
                 }

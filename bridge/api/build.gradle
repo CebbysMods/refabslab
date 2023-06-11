@@ -1,0 +1,81 @@
+plugins {
+    id 'fabric-loom'
+    id 'maven-publish'
+}
+
+sourceCompatibility = JavaVersion.VERSION_17
+targetCompatibility = JavaVersion.VERSION_17
+
+archivesBaseName = project.archives_base_name + "-api"
+version = project.mod_version
+group = project.maven_group
+
+
+repositories {
+    mavenLocal()
+}
+
+
+dependencies {
+    minecraft "com.mojang:minecraft:${project.minecraft_version}"
+    mappings loom.officialMojangMappings()
+    modImplementation "net.fabricmc:fabric-loader:${project.loader_version}"
+    modImplementation "net.fabricmc.fabric-api:fabric-api:${project.fabric_version}"
+
+    compileOnly "org.projectlombok:lombok:${project.lombok_version}"
+    annotationProcessor "org.projectlombok:lombok:${project.lombok_version}"
+    testCompileOnly "org.projectlombok:lombok:${project.lombok_version}"
+    testAnnotationProcessor "org.projectlombok:lombok:${project.lombok_version}"
+}
+
+
+processResources {
+    var map = Map.of("version", project.mod_version)
+
+    inputs.properties(map)
+
+    filesMatching("fabric.mod.json") {
+        expand(map)
+    }
+}
+
+
+tasks.withType(JavaCompile).configureEach {
+    it.options.release = 17
+}
+
+
+java {
+    withSourcesJar()
+}
+
+
+jar {
+    from("LICENSE") {
+        rename { "${it}_${project.archivesBaseName}" }
+    }
+}
+
+
+publishing {
+    publications {
+        mavenJava(MavenPublication) {
+            from components.java
+        }
+    }
+}
+
+
+String getModDependency(Object versionObject) {
+    String version = versionObject.toString()
+    try {
+        StringBuilder out = new StringBuilder()
+        out.append(version.substring(0, version.indexOf(".") + 1))
+        version = version.substring(version.indexOf(".") + 1)
+        if (version.contains(".")) version = version.substring(0, version.indexOf(".") + 1)
+        out.append(version).append("x")
+        return out
+    } catch (Exception e) {
+    }
+    throw new RuntimeException("Invalid mod version: " + version);
+}

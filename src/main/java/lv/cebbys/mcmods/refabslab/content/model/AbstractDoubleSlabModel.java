@@ -30,7 +30,11 @@ public abstract class AbstractDoubleSlabModel implements FabricBakedModel, Baked
         return Collections.emptyList();
     }
 
-    @Override
+
+    public void resolveParents(Function<ResourceLocation, UnbakedModel> function) {
+
+    }
+
     public Collection<Material> getMaterials(
             Function<ResourceLocation, UnbakedModel> unbakedModelGetter,
             Set<Pair<String, String>> unresolvedTextureReferences

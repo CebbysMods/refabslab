@@ -6,7 +6,9 @@ import net.minecraft.client.resources.model.BakedModel;
 import net.minecraft.client.resources.model.MultiPartBakedModel;
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.level.block.state.BlockState;
+import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.lang3.tuple.Pair;
+import org.apache.http.util.TextUtils;
 import org.jetbrains.annotations.Nullable;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -14,9 +16,11 @@ import org.slf4j.LoggerFactory;
 import java.util.Arrays;
 import java.util.List;
 import java.util.function.Predicate;
+import java.util.regex.Pattern;
 
 public class TransformUtils {
     private static final Logger LOGGER = LoggerFactory.getLogger(RefabslabCommon.class);
+    private static final Pattern MINECRAFT_VERSION_PATTERN = Pattern.compile("1.[0-9]+(.[0-9]+|)");
     private static final String NULL_STRING = "NULL";
 
     public static String toString(BlockPos pos) {

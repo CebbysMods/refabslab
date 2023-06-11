@@ -14,7 +14,6 @@ import net.minecraft.client.renderer.texture.TextureAtlasSprite;
 import net.minecraft.client.resources.model.*;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
-import net.minecraft.core.Registry;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.level.BlockAndTintGetter;
@@ -24,7 +23,7 @@ import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.properties.SlabType;
 import org.apache.commons.lang3.tuple.ImmutablePair;
 import org.apache.commons.lang3.tuple.Pair;
-import org.checkerframework.checker.units.qual.A;
+import org.jetbrains.annotations.Nullable;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -45,13 +44,10 @@ public class DoubleSlabModel extends AbstractDoubleSlabModel {
     private TextureAtlasSprite PARTICLE;
 
 
+    @Nullable
     @Override
-    public BakedModel bake(
-            ModelBakery loader,
-            Function<Material, TextureAtlasSprite> textureGetter,
-            ModelState rotationContainer, ResourceLocation modelId
-    ) {
-        this.PARTICLE = textureGetter.apply(this.PARTICLE_ID);
+    public BakedModel bake(ModelBakery modelBakery, Function<Material, TextureAtlasSprite> function, ModelState modelState, ResourceLocation resourceLocation) {
+        this.PARTICLE = function.apply(this.PARTICLE_ID);
         return this;
     }
 
