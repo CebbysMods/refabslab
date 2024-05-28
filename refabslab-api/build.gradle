@@ -1,0 +1,21 @@
+plugins {
+    id 'maven-publish'
+    id 'java'
+}
+
+sourceCompatibility = JavaVersion.VERSION_21
+targetCompatibility = JavaVersion.VERSION_21
+
+repositories {
+    mavenCentral()
+    mavenLocal()
+}
+
+dependencies {
+    compileOnly "org.projectlombok:lombok:${project.lombok_version}"
+    annotationProcessor "org.projectlombok:lombok:${project.lombok_version}"
+    testCompileOnly "org.projectlombok:lombok:${project.lombok_version}"
+    testAnnotationProcessor "org.projectlombok:lombok:${project.lombok_version}"
+
+    implementation "jakarta.annotation:jakarta.annotation-api:${project.jakarta_annotations_version}"
+}

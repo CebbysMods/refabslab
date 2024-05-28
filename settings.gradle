@@ -9,12 +9,23 @@ pluginManagement {
     }
 }
 
-void initProject(String name) {
-    var fullName = String.format(":bridge:%s", name)
-    var idName = String.format("refabslab-%s", name.replace(".", "-"))
-    include(fullName)
-    project(fullName).name = idName;
-}
-
-initProject("api")
-initProject("1.19")
+//void initProject(String name) {
+//    var fullName = String.format(":bridge:%s", name)
+//    var idName = String.format("refabslab-%s", name.replace(".", "-"))
+//    include(fullName)
+//    project(fullName).name = idName;
+//}
+//
+//initProject("api")
+//initProject("1.19")
+include(":refabslab-api")
+include(":refabslab-core")
+include(":refabslab-loader")
+include(":refabslab-loader:common")
+include(":refabslab-loader:fabric")
+include(":refabslab-loader:forge")
+include(":refabslab-loader:quilt")
+include(":refabslab-bridge:common:1.20.6")
+include(":refabslab-bridge:fabric:1.20.6")
+include(":refabslab-bridge:forge:1.20.6")
+include(":refabslab-bridge:quilt:1.20.6")

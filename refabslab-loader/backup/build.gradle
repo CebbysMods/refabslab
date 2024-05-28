@@ -1,0 +1,20 @@
+plugins {
+    id 'maven-publish'
+    id 'java'
+}
+
+sourceCompatibility = JavaVersion.VERSION_21
+targetCompatibility = JavaVersion.VERSION_21
+
+archivesBaseName = project.archives_base_name + "-api"
+version = project.mod_version
+group = project.maven_group
+
+repositories {
+    mavenCentral()
+    mavenLocal()
+}
+
+dependencies {
+    implementation project(":refabslab-api")
+}
