@@ -1,7 +1,9 @@
 package lv.cebbys.mcmods.refabslab.loader.fabric;
 
 import lombok.extern.slf4j.Slf4j;
+import lv.cebbys.mcmods.mvl.MinecraftVersionUtility;
 import lv.cebbys.mcmods.refabslab.core.RefabslabClient;
+import lv.cebbys.mcmods.refabslab.loader.RefabslabBridgeLoader;
 import net.fabricmc.api.ClientModInitializer;
 
 @Slf4j
@@ -16,6 +18,9 @@ public class RefabslabFabricClient implements ClientModInitializer {
              in case specific plugin does not have specific component in that version
              fall back to earlier minecraft version and load component from there
          */
+        var minecraftVersion = MinecraftVersionUtility.getVersion();
+        RefabslabBridgeLoader.initializeContext(minecraftVersion);
+
         try {
             var initializer = new RefabslabClient();
             initializer.onInitializeClient();

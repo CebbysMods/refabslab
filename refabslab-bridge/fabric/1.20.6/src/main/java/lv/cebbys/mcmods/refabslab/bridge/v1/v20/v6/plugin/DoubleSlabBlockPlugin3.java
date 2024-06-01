@@ -9,8 +9,8 @@ import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.StateDefinition;
 import net.minecraft.world.level.block.state.properties.IntegerProperty;
 
-@RefabslabPluginIdentifier(type = AbstractDoubleSlabBlockPlugin.class, major = 1, minor = 20, patch = 6)
-public class DoubleSlabBlockPlugin extends AbstractDoubleSlabBlockPlugin<Block> {
+@RefabslabPluginIdentifier(type = AbstractDoubleSlabBlockPlugin.class, major = 1, minor = 16, patch = 1)
+public class DoubleSlabBlockPlugin3 extends AbstractDoubleSlabBlockPlugin<Block> {
     @Override
     public Block createDoubleSlabBlock(BlockApi block) {
         return new Block(BlockBehaviour.Properties.of()) {

@@ -29,3 +29,7 @@ dependencies {
 
     implementation project(":refabslab-api")
 }
+
+remapJar {
+
+}

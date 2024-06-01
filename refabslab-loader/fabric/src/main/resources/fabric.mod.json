@@ -21,9 +21,5 @@
     "main": [
       "lv.cebbys.mcmods.refabslab.loader.fabric.RefabslabFabricCommon"
     ]
-  },
-  "depends": {
-    "fabricloader": ">=0.13.0",
-    "fabric": ">=0.56.0"
   }
 }

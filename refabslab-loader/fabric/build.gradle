@@ -1,7 +1,7 @@
 plugins {
-    id 'maven-publish'
-    id 'fabric-loom' version '1.6-SNAPSHOT'
-    id 'java'
+    id "maven-publish"
+    id "fabric-loom" version "1.6-SNAPSHOT"
+    id "java"
 }
 
 sourceCompatibility = JavaVersion.VERSION_21
@@ -22,11 +22,17 @@ dependencies {
     modImplementation "net.fabricmc:fabric-loader:${project.loader_version}"
     modImplementation "net.fabricmc.fabric-api:fabric-api:${project.fabric_version}"
 
+    implementation project(path: ":refabslab-bridge:fabric:1.20.6", configuration: "namedElements")
+
+    modImplementation "lv.cebbys.mcmods.mvl:minecraft-version-loader:3.0.0"
+
+    implementation "org.reflections:reflections:0.10.2"
+
+    implementation project(":refabslab-api")
+    implementation project(":refabslab-core")
+
     compileOnly "org.projectlombok:lombok:${project.lombok_version}"
     annotationProcessor "org.projectlombok:lombok:${project.lombok_version}"
     testCompileOnly "org.projectlombok:lombok:${project.lombok_version}"
     testAnnotationProcessor "org.projectlombok:lombok:${project.lombok_version}"
-
-    implementation project(":refabslab-api")
-    implementation project(":refabslab-core")
 }
