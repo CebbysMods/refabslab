@@ -47,7 +47,7 @@ public final class RefabslabMod implements ModularMod {
     }
 
     @Override
-    public void init(ModContext mod) {
+    public void initCommon(ModContext mod) {
         doubleSlab = mod.block("double_slab_block", block -> block
                 .property(LIGHT_LEVEL, 0)
                 .strength(2.0F, 6.0F)
