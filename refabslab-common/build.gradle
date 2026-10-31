@@ -1,0 +1,27 @@
+plugins {
+    id 'java-library'
+}
+
+description = 'Refabricated Slabs logic, loader and Minecraft version independent'
+
+java {
+    toolchain { languageVersion = JavaLanguageVersion.of(21) }
+}
+
+tasks.withType(JavaCompile).configureEach {
+    options.release = 17
+    options.encoding = 'UTF-8'
+}
+
+dependencies {
+    compileOnly "lv.cebbys.mcmods:modularity-api:${modularity_version}"
+
+    testImplementation "lv.cebbys.mcmods:modularity-testkit:${modularity_version}"
+    testImplementation platform("org.junit:junit-bom:${junit_version}")
+    testImplementation 'org.junit.jupiter:junit-jupiter'
+    testRuntimeOnly 'org.junit.platform:junit-platform-launcher'
+}
+
+test {
+    useJUnitPlatform()
+}

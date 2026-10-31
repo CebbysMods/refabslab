@@ -64,3 +64,15 @@
 > *Fixes:*
 > * Changed Cardinal API version to make the Refabslab mod compatible with other mods.
 > * Fixed issue where game would crash if sand block landed on lower slab block.
+
+## Version 1.1.0 - The Modularity Update
+
+> *Changes:*
+> * Rewritten on top of the Modularity API (multi loader, multi version). First target: Fabric 1.21.1.
+> * Slab data is stored in a block entity instead of a Cardinal Components chunk component; Cardinal Components, Celib and Respro are no longer needed.
+> * Excluded slabs are a data-driven block tag (`refabslab:non_combinable`) instead of code.
+
+> *Additions:*
+> * Double slabs drop both slabs when destroyed by explosions.
+> * KleeSlabs compatibility: with KleeSlabs installed, mining a double slab breaks only the half you look at and leaves the other slab in place.
+> * Feature tests for all mod behaviour.

@@ -1,0 +1,6 @@
+{
+  "replace": false,
+  "values": [
+    { "id": "minegate:grass_block_slab", "required": false }
+  ]
+}

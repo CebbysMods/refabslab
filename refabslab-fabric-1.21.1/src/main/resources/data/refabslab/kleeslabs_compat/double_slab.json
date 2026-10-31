@@ -1,0 +1,7 @@
+{
+  "modid": "refabslab",
+  "converter": "lv.cebbys.mcmods.refabslab.fabric.compat.KleeSlabsConverter",
+  "slabs": [
+    "double_slab_block"
+  ]
+}

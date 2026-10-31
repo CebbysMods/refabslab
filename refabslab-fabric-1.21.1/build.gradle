@@ -1,0 +1,53 @@
+plugins {
+    id 'fabric-loom' version '1.10-SNAPSHOT'
+}
+
+def minecraftVersion = '1.21.1'
+
+base {
+    archivesName = "refabslab-fabric-${minecraftVersion}"
+}
+
+java {
+    toolchain { languageVersion = JavaLanguageVersion.of(21) }
+}
+
+repositories {
+    maven {
+        name = 'Modrinth'
+        url = 'https://api.modrinth.com/maven'
+        content { includeGroup 'maven.modrinth' }
+    }
+}
+
+dependencies {
+    minecraft "com.mojang:minecraft:${minecraftVersion}"
+    mappings loom.officialMojangMappings()
+    modImplementation "net.fabricmc:fabric-loader:${project.fabric_loader_version}"
+    modImplementation "net.fabricmc.fabric-api:fabric-api:${project.fabric_api_version}"
+
+    // The Modularity platform for this loader/version, bundled so players install one jar.
+    modImplementation "lv.cebbys.mcmods:modularity-fabric-${minecraftVersion}:${modularity_version}"
+    include "lv.cebbys.mcmods:modularity-fabric-${minecraftVersion}:${modularity_version}"
+
+    // Optional integration: only the converter interface is needed at compile time.
+    modCompileOnly "maven.modrinth:kleeslabs:${project.kleeslabs_version}"
+
+    // All mod code lives in the common module and is shipped inside this jar.
+    implementation project(':refabslab-common')
+}
+
+jar {
+    from(project(':refabslab-common').sourceSets.main.output)
+    from(rootProject.file('LICENSE')) {
+        rename { "${it}_refabslab" }
+    }
+}
+
+processResources {
+    def props = [version: project.version, minecraft_version: minecraftVersion]
+    inputs.properties(props)
+    filesMatching('fabric.mod.json') {
+        expand(props)
+    }
+}
