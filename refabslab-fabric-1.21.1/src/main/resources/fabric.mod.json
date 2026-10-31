@@ -1,0 +1,24 @@
+{
+  "schemaVersion": 1,
+  "id": "refabslab",
+  "version": "${version}",
+  "name": "Refabricated Slabs",
+  "description": "Mix and match slabs as you want!",
+  "authors": ["CebbyS"],
+  "contact": {
+    "homepage": "https://www.curseforge.com/minecraft/mc-mods/refabricated-slabs",
+    "sources": "https://github.com/CebbysMods/refabslab"
+  },
+  "license": "CC0-1.0",
+  "icon": "assets/refabslab/icon.png",
+  "environment": "*",
+  "entrypoints": {
+    "modularity": ["lv.cebbys.mcmods.refabslab.RefabslabMod"]
+  },
+  "depends": {
+    "fabricloader": ">=0.16.0",
+    "fabric-api": "*",
+    "minecraft": "~${minecraft_version}",
+    "modularity": "*"
+  }
+}

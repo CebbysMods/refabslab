@@ -8,3 +8,14 @@ pluginManagement {
         gradlePluginPortal()
     }
 }
+
+rootProject.name = 'refabslab'
+
+// All mod logic, written against the Modularity API only.
+include 'refabslab-common'
+
+// Loader/version packaging (metadata + resources, no Java code).
+// Skip with -Prefabslab.platforms=none when Minecraft mavens are unreachable.
+if (providers.gradleProperty('refabslab.platforms').getOrElse('all') != 'none') {
+    include 'refabslab-fabric-1.21.1'
+}
