@@ -4,7 +4,7 @@ on: [push, pull_request, workflow_dispatch]
 env:
   # Modularity revision to build against. Point this to the modularity default branch once the
   # modularity milestone 1 branch is merged.
-  MODULARITY_REF: ccr-0c4ae7b5-wiat19
+  MODULARITY_REF: feature/milestone-1-core-api
 
 jobs:
   build:
