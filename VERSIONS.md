@@ -74,4 +74,5 @@
 
 > *Additions:*
 > * Double slabs drop both slabs when destroyed by explosions.
+> * KleeSlabs compatibility: with KleeSlabs installed, mining a double slab breaks only the half you look at and leaves the other slab in place.
 > * Feature tests for all mod behaviour.

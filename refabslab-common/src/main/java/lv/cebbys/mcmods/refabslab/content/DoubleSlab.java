@@ -36,6 +36,15 @@ public record DoubleSlab(Id top, Id bottom) {
         return data.orElse(DEFAULT);
     }
 
+    /** The single slab forming the given half ({@code TOP} or {@code BOTTOM}). */
+    public BlockStateRef half(SlabType type) {
+        return switch (type) {
+            case TOP -> topState();
+            case BOTTOM -> bottomState();
+            case DOUBLE -> throw new IllegalArgumentException("A half is either TOP or BOTTOM");
+        };
+    }
+
     public BlockStateRef topState() {
         return slab(top, SlabType.TOP);
     }

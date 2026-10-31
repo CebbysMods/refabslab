@@ -18,6 +18,7 @@ API - the mod contains no loader or Minecraft specific code.
 * Mining speed and tool requirements follow the slabs; both slabs drop.
 * Light level of the brightest slab; break/hit particles of the right half.
 * Works with Sodium (0.6+, or older with Indium) and Iris.
+* KleeSlabs support: break only the half you are looking at.
 * Data-driven exclusions: add slabs to the block tag `refabslab:non_combinable`.
 
 ## Building

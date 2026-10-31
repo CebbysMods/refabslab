@@ -13,6 +13,7 @@ import lv.cebbys.mcmods.modularity.testkit.TestGame;
 import lv.cebbys.mcmods.modularity.testkit.TestItemStack;
 import lv.cebbys.mcmods.modularity.testkit.TestLevel;
 import lv.cebbys.mcmods.modularity.testkit.TestPlayer;
+import lv.cebbys.mcmods.refabslab.compat.KleeSlabsCompat;
 import lv.cebbys.mcmods.refabslab.compat.SodiumCompatibility;
 import lv.cebbys.mcmods.refabslab.content.DoubleSlab;
 import org.junit.jupiter.api.BeforeEach;
@@ -230,6 +231,24 @@ class RefabslabTest {
 
     @Nested
     class Compatibility {
+        @Test
+        void kleeSlabsSplitsIntoTheStoredHalves() {
+            placeOnBottomSlab(oak, stone);
+            BlockStateRef state = level.blockState(POS);
+
+            assertTrue(KleeSlabsCompat.isDoubleSlab(state));
+            assertFalse(KleeSlabsCompat.isDoubleSlab(slab(oak, SlabType.BOTTOM)));
+            assertEquals(slab(stone, SlabType.TOP), KleeSlabsCompat.singleSlab(level, POS, SlabType.TOP));
+            assertEquals(slab(oak, SlabType.BOTTOM), KleeSlabsCompat.singleSlab(level, POS, SlabType.BOTTOM));
+        }
+
+        @Test
+        void kleeSlabsWithoutDataFallsBackToCobblestone() {
+            level.set(POS, game.block(DOUBLE).orElseThrow().defaultState());
+
+            assertEquals(slab(cobblestone, SlabType.TOP), KleeSlabsCompat.singleSlab(level, POS, SlabType.TOP));
+        }
+
         @Test
         void oldSodiumWithoutIndiumIsRejected() {
             TestGame other = TestGame.create();
